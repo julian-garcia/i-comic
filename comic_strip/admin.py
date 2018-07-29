@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ComicStripFrame, ComicStrip
 
-# Register your models here.
+admin.site.register(ComicStripFrame)
+admin.site.register(ComicStrip)

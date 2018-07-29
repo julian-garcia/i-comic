@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from comic_strip.views import comic_strip_listing
+from comic_strip.views import comic_strip_listing, comic_strip
 from comic_strip import urls as urls_comic_strip
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', comic_strip_listing, name='index'),
-    path('comic-strip', include(urls_comic_strip)),
+    path('comic-strip/', include(urls_comic_strip)),
 ]
