@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="nav-menu">
-    <a class="btn home-button" href="{% url 'index' %}" role="button">i-Comic</a>
+    <a class="btn brand-button" href="{% url 'index' %}" role="button">i-Comic</a>
     <i class="fas fa-bars home-menu-icon" id="home-toggle-menu"></i>
     <ul class="home-menu" id="home-toggle-dropdown">
       <li class="home-menu-item">
@@ -29,7 +29,7 @@
         </a>
       </li>
       <li class="home-menu-item">
-        <a class="home-menu-link" href="#">
+        <a class="home-menu-link" href="{% url 'comic_strip_add' %}">
           <span class="home-menu-text home-menu-text-hide">Add Comic Strip</span>
           <i class="fas fa-plus home-menu-item-icon"></i>
         </a>

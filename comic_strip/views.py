@@ -13,7 +13,10 @@ def comic_strip_add(request):
     if request.method=='POST':
         comic_strip_form = ComicStripForm(request.POST)
         if comic_strip_form.is_valid():
-            comic_strip_form.save()
+            comic_strip = comic_strip_form.save(commit=False)
+            comic_strip.author = request.user
+            comic_strip.save()
+
             return redirect(reverse('index'))
     else:
         comic_strip_form = ComicStripForm()

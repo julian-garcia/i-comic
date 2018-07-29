@@ -3,10 +3,20 @@
 {% block page_title %}i-Comic{% endblock %}
 {% block content %}
 {% for comic_strip in comic_strips %}
-  <div class="row">
-    <div class="col-12 col-sm-9 hand-drawn-border">
-      <h2>{{ comic_strip.title }}</h2>
-      <h3>{{ comic_strip.description }}</h3>
+  <div class="row mb-3">
+    <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <h2>{{ comic_strip.title }}</h2>
+          <h3>{{ comic_strip.author.first_name }} {{ comic_strip.author.last_name }}</h3>
+        </div>
+        <div class="col-12 col-md-6 text-center">
+          <hr class="d-block d-md-none">
+          <h3 class="text-left">{{ comic_strip.description }}</h3>
+          <hr class="d-block d-md-none">
+          <a class="btn brand-button" href="#" role="button">View</a>
+        </div>
+      </div>
     </div>
   </div>
 {% endfor %}

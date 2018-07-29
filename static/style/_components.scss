@@ -1,14 +1,23 @@
+.brand-button {
+  border-radius: 30px;
+  background-color: $main-brand-colour;
+  color: $dark-shade;
+  transition: all 1s ease-in-out;
+  
+  &:hover {
+    color: $light-shade;
+  }
+}
+
 .nav-menu {
   position: absolute;
   right: 20px;
   top:10px;
   z-index: 999;
-  
-  .home-button {
-    border-radius: 30px;
-    background-color: $main-brand-colour;
-    color: $dark-shade;
+
+  .brand-button {
     min-width: 200px;
+    font-size: 1.2rem;
   }
 
   .home-menu-icon {
@@ -17,10 +26,15 @@
     top: 15px;
     background-color: $dark-shade;
     color: $light-shade;
+    border: 1px solid $dark-shade;
     padding: 10px;
     border-radius: 20px;
+    transition: all 1s ease-in-out;
     &:hover {
       cursor: pointer;
+      background-color: $light-shade;
+      color: $dark-shade;
+      border: 1px solid $dark-shade;
     }
   }
 
