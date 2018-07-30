@@ -20,4 +20,27 @@
     </div>
   </div>
 {% endfor %}
+{% if comic_strips.paginator.num_pages > 1 %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9">
+    <div class="pagination justify-content-center mt-2">
+      <span class="step-links">
+        {% if comic_strips.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ comic_strips.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ comic_strips.number }} of {{ comic_strips.paginator.num_pages }}.
+        </span>
+
+        {% if comic_strips.has_next %}
+            <a href="?page={{ comic_strips.next_page_number }}">next</a>
+            <a href="?page={{ comic_strips.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock %}

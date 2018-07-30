@@ -13,19 +13,38 @@
         <hr class="d-block d-md-none">
         <h3 class="text-left">{{ comic_strip.description }}</h3>
         <hr class="d-block d-md-none">
-        <a class="btn brand-button" href="{% url 'comic_strip_frame_add' %}" role="button">Add Frame</a>
+        <a class="btn brand-button" href="{% url 'comic_strip_frame_add' comic_strip.id %}" role="button">Add Frame</a>
       </div>
     </div>
   </div>
 </div>
 {% if comic_strip_frames %}
-<div class="row comic-strip-frames hand-drawn-border">
+<div class="row comic-strip-frames hand-drawn-border pb-2">
   {% for frame in comic_strip_frames %}
     <div class="col-12 col-sm-6 col-md-4 single-frame">
       <img src="{{ frame.image.url }}">
       <p class="narrative">{{ frame.narrative }}</p>
     </div>
   {% endfor %}
+</div>
+{% endif %}
+{% if comic_strip_frames.paginator.num_pages > 1 %}
+<div class="pagination justify-content-center mt-2 mb-4">
+  <span class="step-links">
+    {% if comic_strip_frames.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ comic_strip_frames.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+        Page {{ comic_strip_frames.number }} of {{ comic_strip_frames.paginator.num_pages }}.
+    </span>
+
+    {% if comic_strip_frames.has_next %}
+        <a href="?page={{ comic_strip_frames.next_page_number }}">next</a>
+        <a href="?page={{ comic_strip_frames.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
 </div>
 {% endif %}
 {% endblock %}

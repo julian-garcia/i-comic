@@ -3,9 +3,14 @@
 {% load bootstrap_tags %}
 {% block page_title %}i-Comic - Add Strip{% endblock %}
 {% block content %}
-<form method="POST" id="comic-strip-form" action="{% url 'comic_strip_frame_add' %}" enctype="multipart/form-data">
-  {{ frame_form | as_bootstrap }}
-  {% csrf_token %}
-  <button type="submit" class="btn btn-outline-dark">Add Frame</button>
-</form>
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Add a Frame for: <br>"{{ comic_strip.title }}"</h2>
+    <form method="POST" id="comic-strip-form" action="{% url 'comic_strip_frame_add' comic_strip.id %}" enctype="multipart/form-data">
+      {{ frame_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Add Frame</button>
+    </form>
+  </div>
+</div>
 {% endblock %}

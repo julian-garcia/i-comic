@@ -6,8 +6,18 @@
   transition: all .7s ease-in-out;
 
   &:hover {
+    cursor: pointer;
     color: $main-brand-colour;
     background-color: $light-shade;
+  }
+}
+
+.button-accent {
+  background-color: $accent-colour;
+  color: $dark-shade;
+  border: 1px solid $accent-colour;
+  &:hover {
+    border: 1px solid $main-brand-colour;
   }
 }
 
