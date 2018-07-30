@@ -14,7 +14,7 @@
           <hr class="d-block d-md-none">
           <h3 class="text-left">{{ comic_strip.description }}</h3>
           <hr class="d-block d-md-none">
-          <a class="btn brand-button" href="#" role="button">View</a>
+          <a class="btn brand-button" href="{% url 'comic_strip' comic_strip.id %}" role="button">View</a>
         </div>
       </div>
     </div>

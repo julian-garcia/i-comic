@@ -12,6 +12,7 @@ class ComicStripFrameAddForm(forms.ModelForm):
         fields = ['comic_strip', 'narrative', 'image']
 
 class ComicStripFrameEditForm(forms.ModelForm):
+    move = forms.IntegerField(required=False)
     class Meta:
         model = ComicStripFrame
         fields = ['comic_strip', 'narrative', 'image', 'move']

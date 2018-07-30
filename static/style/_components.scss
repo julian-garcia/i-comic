@@ -2,10 +2,12 @@
   border-radius: 30px;
   background-color: $main-brand-colour;
   color: $dark-shade;
-  transition: all 1s ease-in-out;
-  
+  border: 1px solid $main-brand-colour;
+  transition: all .7s ease-in-out;
+
   &:hover {
-    color: $light-shade;
+    color: $main-brand-colour;
+    background-color: $light-shade;
   }
 }
 
@@ -29,7 +31,7 @@
     border: 1px solid $dark-shade;
     padding: 10px;
     border-radius: 20px;
-    transition: all 1s ease-in-out;
+    transition: all .7s ease-in-out;
     &:hover {
       cursor: pointer;
       background-color: $light-shade;
@@ -48,7 +50,7 @@
     }
     .home-menu-item {
       margin-top: 1rem;
-      transition: all 1s ease-in-out;
+      transition: all .7s ease-in-out;
       height: 40px;
       border-radius: 20px;
       &:hover {
@@ -60,7 +62,7 @@
       }
       .home-menu-text {
         color: $dark-shade;
-        transition: all 1s ease-in-out;
+        transition: all .7s ease-in-out;
         margin-right: 1rem;
       }
       .home-menu-text-show {
@@ -86,4 +88,24 @@
 .hand-drawn-border {
   border: solid 3px $dark-shade;
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+
+.comic-strip-frames {
+  border-width: 2px;
+  padding: 0 15px;
+  .single-frame {
+    margin-top: 1rem;
+    background-color: $light-shade;
+    padding: 15px;
+    .narrative {
+      font-size: 1.1rem;
+      text-align: center;
+      background-color: $light-shade;
+      color: $dark-shade;
+      margin-bottom: 0;
+    }
+  }
+  img {
+    width: 100%;
+  }
 }

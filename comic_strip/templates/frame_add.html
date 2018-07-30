@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Add Strip{% endblock %}
+{% block content %}
+<form method="POST" id="comic-strip-form" action="{% url 'comic_strip_frame_add' %}" enctype="multipart/form-data">
+  {{ frame_form | as_bootstrap }}
+  {% csrf_token %}
+  <button type="submit" class="btn btn-outline-dark">Add Frame</button>
+</form>
+{% endblock %}

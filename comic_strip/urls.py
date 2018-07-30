@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import comic_strip, comic_strip_add
+from .views import comic_strip, comic_strip_add, comic_strip_frame_add
 
 urlpatterns = [
-    path('', comic_strip, name='comic_strip'),
     path('add', comic_strip_add, name='comic_strip_add'),
+    path('add-frame', comic_strip_frame_add, name='comic_strip_frame_add'),
+    path('<id>', comic_strip, name='comic_strip'),
 ]
