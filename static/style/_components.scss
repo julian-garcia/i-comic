@@ -21,6 +21,32 @@
   }
 }
 
+.ticket-status {
+  font-size: 1rem;
+  line-height: 1rem;
+  max-height: 2rem;
+  padding-top: 8px;
+}
+
+.ticket-list-icon {
+  background-color: $accent-colour;
+  color: $dark-shade;
+  border: 1px solid $accent-colour;
+  padding: 10px;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  line-height: 20px;
+  text-align: center;
+  transition: all .7s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: $light-shade;
+    color: $dark-shade;
+    border: 1px solid $dark-shade;
+  }
+}
+
 .nav-menu {
   position: absolute;
   right: 20px;
