@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import TicketAddForm
+from django.db.models import F
+from .forms import TicketAddForm, TicketEditForm
 from .models import Ticket, TicketComment
 
 def ticket_listing(request):
@@ -24,6 +25,7 @@ def ticket_view(request, id):
     return render(request, 'ticket.html',
                   {'ticket': ticket, 'ticket_comments': ticket_comments})
 
+@login_required
 def ticket_add(request):
     if request.method == 'POST':
         ticket_form = TicketAddForm(request.POST)
@@ -37,3 +39,27 @@ def ticket_add(request):
         ticket_form = TicketAddForm()
 
     return render(request, 'ticket_add.html', {'ticket_form': ticket_form})
+
+@login_required
+def ticket_edit(request, id):
+    ticket = Ticket.objects.get(pk=id)
+
+    if request.method == 'POST':
+        ticket_form = TicketEditForm(request.POST or None, instance=ticket)
+        if ticket_form.is_valid():
+            ticket_form.save()
+            return redirect(reverse('ticket_view', args=[id]))
+    else:
+        ticket_form = TicketEditForm(instance=ticket)
+
+    return render(request, 'ticket_edit.html', {'ticket_form': ticket_form, 'ticket': ticket})
+
+@login_required
+def ticket_upvote(request, id):
+    ticket = Ticket.objects.get(pk=id)
+    if ticket.upvotes is None:
+        ticket.upvotes = 0
+    ticket.upvotes += 1
+    ticket.save()
+    print(ticket.upvotes)
+    return redirect(reverse('ticket_view', args=[id]))

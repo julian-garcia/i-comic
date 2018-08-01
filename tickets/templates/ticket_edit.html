@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Edit Ticket{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Edit Ticket: {{ ticket.title }}</h2>
+    <h3>Requester: {{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
+    <p>{{ ticket.description }}</p>
+    <form method="POST" id="ticket-add-form" action="{% url 'ticket_edit' ticket.id %}">
+      {{ ticket_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Save Changes</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

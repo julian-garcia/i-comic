@@ -39,11 +39,12 @@
   line-height: 20px;
   text-align: center;
   transition: all .7s ease-in-out;
-  &:hover {
-    cursor: pointer;
-    background-color: $light-shade;
-    color: $dark-shade;
-    border: 1px solid $dark-shade;
+  .comment-count {
+    position: absolute;
+    top: -5px;
+    &:hover {
+      cursor: default;
+    }
   }
 }
 
@@ -54,10 +55,24 @@
     color: transparent;
     background-color: transparent;
   }
+
+  .ticket-list-icon {
+    &:hover {
+      background-color: $light-shade;
+      color: $dark-shade;
+      border: 1px solid $dark-shade;
+    }
+  }
 }
 
 .ticket-body {
   border-top-width: 0 !important;
+}
+
+.ticket-solution {
+  border-top: 2px solid $accent-colour;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
 .nav-menu {

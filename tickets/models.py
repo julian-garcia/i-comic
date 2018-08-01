@@ -19,6 +19,7 @@ class Ticket(models.Model):
     requester = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField()
+    solution = models.TextField('Solution / Proposed solution', null=True, blank=True)
     date_raised = models.DateTimeField(auto_now_add=True)
     date_last_saved = models.DateTimeField(auto_now=True)
     type = models.CharField(max_length=10,choices=TICKET_TYPE_CHOICES, default='Bug')

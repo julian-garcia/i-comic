@@ -7,7 +7,7 @@
     <h1>Features & Bugs</h1>
   </div>
   <div class="col-12 col-md-6">
-    <h5>Raise a Ticket <a href="{% url 'ticket_add' %}"><i class="fas fa-plus ticket-list-icon"></i></a></h5>
+    <h5>Raise a Ticket <a href="{% url 'ticket_add' %}" class="ticket-list-link"><i class="fas fa-plus ticket-list-icon"></i></a></h5>
   </div>
 </div>
 <div class="row">
@@ -25,8 +25,16 @@
             <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
           </div>
           <div class="col-12 col-md-6 text-right">
-            <a href="#" class="ticket-list-link"><i class="fas fa-comments ticket-list-icon"></i></a>
-            <a href="#" class="ticket-list-link"><i class="fas fa-arrow-up ticket-list-icon"></i></a>
+            <i class="fas fa-comments ticket-list-icon">
+            {% if ticket.ticketcomment_set.all|length > 0 %}
+            <span class="comment-count">{{ ticket.ticketcomment_set.all|length }}</span>
+            {% endif %}
+            </i>
+            <i class="fas fa-arrow-up ticket-list-icon">
+              {% if ticket.upvotes and ticket.upvotes > 0 %}
+              <span class="comment-count">{{ ticket.upvotes }}</span>
+              {% endif %}
+            </i>
             <a href="{% url 'ticket_view' ticket.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
           </div>
         </li>
