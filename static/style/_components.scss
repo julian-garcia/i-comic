@@ -47,6 +47,19 @@
   }
 }
 
+.ticket-list-link {
+  color: transparent;
+  background-color: transparent;
+  &:hover {
+    color: transparent;
+    background-color: transparent;
+  }
+}
+
+.ticket-body {
+  border-top-width: 0 !important;
+}
+
 .nav-menu {
   position: absolute;
   right: 20px;
@@ -119,6 +132,21 @@
       text-align: center;
     }
   }
+}
+
+.dark-row {
+  background-color: $dark-shade;
+  color: $light-shade;
+}
+
+.light-row {
+  background-color: $light-shade;
+  color: $dark-shade;
+}
+
+.light-alt-row {
+  background-color: darken($light-shade, 5%);
+  color: $dark-shade;
 }
 
 .hand-drawn-border {

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Raise Ticket{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Request a Feature / Report a Bug</h2>
+    <form method="POST" id="ticket-add-form" action="{% url 'ticket_add' %}">
+      {{ ticket_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Raise Ticket</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

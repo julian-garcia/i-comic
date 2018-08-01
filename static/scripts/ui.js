@@ -25,4 +25,18 @@ $(document).ready(function() {
     $('#home-toggle-dropdown').slideUp();
   });
 
+  // Show/hide payment amount field on the "raise a bug/feature" form
+  // Features should be paid for whereas bugs are raised for free
+  $('#div_id_feature_cost').hide();
+  $('#id_feature_cost').val(0);
+
+  $('#ticket-add-form #id_type').change(function() {
+    if ($(this).val() == 'Feature') {
+      $('#div_id_feature_cost').show();
+    } else {
+      $('#div_id_feature_cost').hide();
+      $('#id_feature_cost').val(0);
+    }
+  });
+
 });

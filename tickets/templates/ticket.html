@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}i-Comic{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
+    <h2 class="d-flex justify-content-between">
+      {{ ticket.title }}
+      <span class="badge badge-pill badge-dark ticket-status">{{ ticket.status }}</span>
+    </h2>
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-12 col-sm-6 col-md-9 mb-3 ticket-body hand-drawn-border comic-strip-container ">
+    <h3>Ticket Type: {{ ticket.type }}</h3>
+    <h5>Date Raised: {{ ticket.date_raised|date:'jS M Y' }}</h4>
+    <h5>Date Modified: {{ ticket.date_last_saved|date:'jS M Y' }}</h4>
+    <p>{{ ticket.description }}</p>
+    <h4>Requester: {{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h4>
+    <div class="row">
+      <div class="col-12 text-right">
+        <a href="#" class="ticket-list-link"><i class="far fa-edit ticket-list-icon"></i></a>
+        <a href="#" class="ticket-list-link"><i class="fas fa-arrow-up ticket-list-icon"></i></a>
+        <a href="{% url 'ticket_listing' %}" class="ticket-list-link"><i class="fas fa-chevron-left ticket-list-icon"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-md-3">
+    {% if ticket_comments %}
+      <h3>Comments...</h3>
+      {% for comment in ticket_comments %}
+        <p>{{ comment.comment }}</p>
+        <h6 class="text-right">{{ comment.author.first_name }} {{ comment.author.last_name }}</h6>
+        <h6 class="text-right">{{ comment.date_comment|date:'jS M Y' }}</h6>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
