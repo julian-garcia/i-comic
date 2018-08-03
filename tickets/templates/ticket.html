@@ -19,8 +19,19 @@
     <h4>Requester: {{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h4>
     <div class="row">
       <div class="col-12 text-right">
-        <a href="{% url 'ticket_edit' ticket.id %}" class="ticket-list-link"><i class="far fa-edit ticket-list-icon"></i></a>
-        <a href="{% url 'ticket_upvote' ticket.id %}" class="ticket-list-link"><i class="fas fa-arrow-up ticket-list-icon"><span class="comment-count">{{ ticket.upvotes }}</span></i></a>
+        {% if request.user.is_staff %}
+          <a href="{% url 'ticket_edit' ticket.id %}" class="ticket-list-link"><i class="far fa-edit ticket-list-icon"></i></a>
+        {% endif %}
+        <a href="{% url 'comment_add' ticket.id %}" class="ticket-list-link"><i class="fas fa-comment ticket-list-icon">
+          {% if ticket.ticketcomment_set.all|length > 0 %}
+          <span class="comment-count">{{ ticket.ticketcomment_set.all|length }}</span>
+          {% endif %}
+        </i></a>
+        <a href="{% url 'ticket_upvote' ticket.id %}" class="ticket-list-link"><i class="fas fa-arrow-up ticket-list-icon">
+          {% if ticket.upvotes and ticket.upvotes > 0 %}
+          <span class="comment-count">{{ ticket.upvotes }}</span>
+          {% endif %}
+        </i></a>
         <a href="{% url 'ticket_listing' %}" class="ticket-list-link"><i class="fas fa-chevron-left ticket-list-icon"></i></a>
       </div>
     </div>

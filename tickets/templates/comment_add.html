@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Comment{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Add Comment to: {{ ticket.title }}</h2>
+    <form method="POST" id="ticket-add-form" action="{% url 'comment_add' ticket.id %}">
+      {{ comment_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Add Comment</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

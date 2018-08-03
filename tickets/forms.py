@@ -10,3 +10,8 @@ class TicketEditForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ['status', 'solution']
+
+class TicketCommentAddForm(forms.ModelForm):
+    class Meta:
+        model = TicketComment
+        fields = ['comment']

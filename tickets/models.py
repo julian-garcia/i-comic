@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Ticket(models.Model):
     TICKET_TYPE_CHOICES = (
@@ -16,7 +17,7 @@ class Ticket(models.Model):
         ('Cancelled','Cancelled'),
     )
 
-    requester = models.ForeignKey(User, on_delete=models.CASCADE)
+    requester = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField()
     solution = models.TextField('Solution / Proposed solution', null=True, blank=True)
@@ -31,7 +32,7 @@ class Ticket(models.Model):
         return '{0}-{1}'.format(self.title, self.requester)
 
 class TicketComment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     date_comment = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()

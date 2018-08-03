@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F
-from .forms import TicketAddForm, TicketEditForm
+from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
 from .models import Ticket, TicketComment
 
 def ticket_listing(request):
@@ -31,9 +31,22 @@ def ticket_add(request):
         ticket_form = TicketAddForm(request.POST)
 
         if ticket_form.is_valid():
-            ticket = ticket_form.save(commit=False)
-            ticket.requester = request.user
-            ticket.save()
+            if ticket_form.cleaned_data.get('type') == 'Bug':
+                ticket = ticket_form.save(commit=False)
+                ticket.requester = request.user
+                ticket.save()
+            elif ticket_form.cleaned_data.get('feature_cost') is not None and ticket_form.cleaned_data.get('feature_cost') > 0:
+                # Add ticket to cart with manually entered price
+                cart = request.session.get('cart', [])
+                # Convert decimal to string to prevent 'not JSON serializable' error
+                cleaned_form = ticket_form.cleaned_data
+                cleaned_form['feature_cost'] = str(cleaned_form['feature_cost'])
+                cart.append(cleaned_form)
+                request.session['cart'] = cart
+                messages.info(request, 'A new feature has been added to your cart.')
+            else:
+                messages.error(request, 'The cost for a new feature must be above zero.')
+
             return redirect(reverse('ticket_listing'))
     else:
         ticket_form = TicketAddForm()
@@ -44,22 +57,51 @@ def ticket_add(request):
 def ticket_edit(request, id):
     ticket = Ticket.objects.get(pk=id)
 
-    if request.method == 'POST':
-        ticket_form = TicketEditForm(request.POST or None, instance=ticket)
-        if ticket_form.is_valid():
-            ticket_form.save()
-            return redirect(reverse('ticket_view', args=[id]))
-    else:
-        ticket_form = TicketEditForm(instance=ticket)
+    if request.user.is_staff:
+        if request.method == 'POST':
+            ticket_form = TicketEditForm(request.POST or None, instance=ticket)
+            if ticket_form.is_valid():
+                ticket_form.save()
+                return redirect(reverse('ticket_view', args=[id]))
+        else:
+            ticket_form = TicketEditForm(instance=ticket)
 
     return render(request, 'ticket_edit.html', {'ticket_form': ticket_form, 'ticket': ticket})
 
 @login_required
 def ticket_upvote(request, id):
     ticket = Ticket.objects.get(pk=id)
-    if ticket.upvotes is None:
-        ticket.upvotes = 0
-    ticket.upvotes += 1
-    ticket.save()
-    print(ticket.upvotes)
+
+    if ticket.type == 'Bug':
+        if ticket.upvotes is None:
+            ticket.upvotes = 0
+        ticket.upvotes += 1
+        ticket.save()
+    else:
+        # Add feature upvote to cart
+        cart_upvotes = request.session.get('cart_upvotes', [])
+        cart_upvotes.append(id)
+        request.session['cart_upvotes'] = cart_upvotes
+        messages.info(request, 'An upvote for this feature has been added to your cart.')
+        return redirect(reverse('ticket_view', args=[id]))
+
     return redirect(reverse('ticket_view', args=[id]))
+
+@login_required
+def comment_add(request, id):
+    ticket = Ticket.objects.get(pk=id)
+
+    if request.method == 'POST':
+        comment_form = TicketCommentAddForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.ticket = ticket
+            comment.save()
+
+        return redirect(reverse('ticket_view', args=[id]))
+    else:
+        comment_form = TicketCommentAddForm()
+
+    return render(request, 'comment_add.html', {'comment_form': comment_form, 'ticket': ticket})
