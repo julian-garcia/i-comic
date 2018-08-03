@@ -9,13 +9,14 @@ def login(request):
         return redirect(reverse('index'))
 
     if request.method=='POST':
+        nextpage = request.POST.get('next')
         login_form = UserLoginForm(request.POST)
         user = auth.authenticate(username=request.POST['email'],
                                  password=request.POST['password'])
         if user:
             auth.login(user=user,request=request)
             messages.success(request, 'Logged in')
-            return redirect(reverse('index'))
+            return redirect(nextpage)
         else:
             login_form.add_error(None, "User name or password incorrect")
     else:

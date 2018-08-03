@@ -9,6 +9,7 @@
     <form method="POST" id="ticket-add-form" action="{% url 'login' %}">
       {{ login_form | as_bootstrap }}
       {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}"/>
       <button type="submit" class="brand-button button-accent">Login</button>
     </form>
   </div>
