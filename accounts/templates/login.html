@@ -6,7 +6,8 @@
 <div class="row mb-3">
   <div class="col-12 col-sm-9 text-center">
     <h2>Login</h2>
-    <form method="POST" id="ticket-add-form" action="{% url 'login' %}">
+    <h4>Don't have an account? You can <a href="{% url 'register' %}">register here</a></h4>
+    <form method="POST" id="login-form" action="{% url 'login' %}">
       {{ login_form | as_bootstrap }}
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.GET.next }}"/>

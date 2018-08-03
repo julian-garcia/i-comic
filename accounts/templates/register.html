@@ -6,7 +6,8 @@
 <div class="row mb-3">
   <div class="col-12 col-sm-9 text-center">
     <h2>Register</h2>
-    <form method="POST" id="ticket-add-form" action="{% url 'register' %}">
+    <h4>Already registered? You can <a href="{% url 'login' %}">login here</a></h4>
+    <form method="POST" id="register-form" action="{% url 'register' %}">
       {{ registration_form | as_bootstrap }}
       {% csrf_token %}
       <button type="submit" class="brand-button button-accent">Register</button>

@@ -6,7 +6,7 @@
 <div class="row mb-3">
   <div class="col-12 col-sm-9 text-center">
     <h2>Add a Frame for: <br>"{{ comic_strip.title }}"</h2>
-    <form method="POST" id="comic-strip-form" action="{% url 'comic_strip_frame_add' comic_strip.id %}" enctype="multipart/form-data">
+    <form method="POST" id="frame-add-form" action="{% url 'comic_strip_frame_add' comic_strip.id %}" enctype="multipart/form-data">
       {{ frame_form | as_bootstrap }}
       {% csrf_token %}
       <button type="submit" class="brand-button button-accent">Add Frame</button>

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
-from .models import Ticket, TicketComment
+from .models import Ticket, TicketComment, TicketUpvoter
 
 def ticket_listing(request):
     tickets = Ticket.objects.all()
@@ -38,10 +39,8 @@ def ticket_add(request):
             elif ticket_form.cleaned_data.get('feature_cost') is not None and ticket_form.cleaned_data.get('feature_cost') > 0:
                 # Add ticket to cart with manually entered price
                 cart = request.session.get('cart', [])
-                # Convert decimal to string to prevent 'not JSON serializable' error
-                cleaned_form = ticket_form.cleaned_data
-                cleaned_form['feature_cost'] = str(cleaned_form['feature_cost'])
-                cart.append(cleaned_form)
+                cart.append({'title': ticket_form.cleaned_data.get('title'),
+                             'feature_cost': str(ticket_form.cleaned_data.get('feature_cost'))})
                 request.session['cart'] = cart
                 messages.info(request, 'A new feature has been added to your cart.')
             else:
@@ -71,18 +70,28 @@ def ticket_edit(request, id):
 @login_required
 def ticket_upvote(request, id):
     ticket = Ticket.objects.get(pk=id)
-
-    if ticket.type == 'Bug':
-        if ticket.upvotes is None:
-            ticket.upvotes = 0
-        ticket.upvotes += 1
-        ticket.save()
+    upvotes = TicketUpvoter.objects.all().filter(upvoter_ticket=ticket,
+                                                 upvoter_user=request.user)
+    if not upvotes:
+        if ticket.type == 'Bug':
+            if ticket.upvotes is None:
+                ticket.upvotes = 0
+            ticket.upvotes += 1
+            ticket.save()
+            upvoter = TicketUpvoter(upvoter_ticket=ticket, upvoter_user=request.user)
+            upvoter.save()
+        else:
+            # Add upvoted feature to the upvote cart
+            cart_upvotes = request.session.get('cart_upvotes', [])
+            if not any(d['id'] == ticket.id for d in cart_upvotes):
+                cart_upvotes.append({'id': ticket.id, 'title': ticket.title, 'cost': 1})
+                request.session['cart_upvotes'] = cart_upvotes
+                messages.info(request, 'An upvote for this feature has been added to your cart.')
+            else:
+                messages.info(request, 'An upvote for this feature is already in your cart.')
+            return redirect(reverse('ticket_view', args=[id]))
     else:
-        # Add feature upvote to cart
-        cart_upvotes = request.session.get('cart_upvotes', [])
-        cart_upvotes.append(id)
-        request.session['cart_upvotes'] = cart_upvotes
-        messages.info(request, 'An upvote for this feature has been added to your cart.')
+        messages.info(request, 'You have already upvoted this.')
         return redirect(reverse('ticket_view', args=[id]))
 
     return redirect(reverse('ticket_view', args=[id]))

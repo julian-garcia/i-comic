@@ -19,6 +19,7 @@ from comic_strip.views import comic_strip_listing, comic_strip
 from comic_strip import urls as urls_comic_strip
 from tickets import urls as urls_tickets
 from accounts import urls as urls_accounts
+from cart import urls as urls_cart
 from django.conf.urls.static import static
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -28,4 +29,5 @@ urlpatterns = [
     path('comic-strip/', include(urls_comic_strip)),
     path('tickets/', include(urls_tickets)),
     path('account/', include(urls_accounts)),
+    path('cart/', include(urls_cart)),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -15,7 +15,7 @@ def login(request):
                                  password=request.POST['password'])
         if user:
             auth.login(user=user,request=request)
-            messages.success(request, 'Logged in')
+            messages.success(request, 'You are now logged in')
             return redirect(nextpage)
         else:
             login_form.add_error(None, "User name or password incorrect")

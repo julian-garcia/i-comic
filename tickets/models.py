@@ -23,8 +23,8 @@ class Ticket(models.Model):
     solution = models.TextField('Solution / Proposed solution', null=True, blank=True)
     date_raised = models.DateTimeField(auto_now_add=True)
     date_last_saved = models.DateTimeField(auto_now=True)
-    type = models.CharField(max_length=10,choices=TICKET_TYPE_CHOICES, default='Bug')
-    status = models.CharField(max_length=12,choices=TICKET_STATUS_CHOICES, default='Logged')
+    type = models.CharField(max_length=10, choices=TICKET_TYPE_CHOICES, default='Bug')
+    status = models.CharField(max_length=12, choices=TICKET_STATUS_CHOICES, default='Logged')
     upvotes = models.IntegerField(null=True, blank=True)
     feature_cost = models.DecimalField("Contribution towards feature development", max_digits=4, decimal_places=2, null=True, blank=True)
 
@@ -39,3 +39,9 @@ class TicketComment(models.Model):
 
     def __str__(self):
         return '{0}-{1}'.format(self.ticket, self.comment)
+
+class TicketUpvoter(models.Model):
+    upvoter_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    upvoter_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{0}-{1}'.format(self.upvoter_user.email, self.upvoter_ticket.title)

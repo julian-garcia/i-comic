@@ -1,3 +1,12 @@
+a {
+  color: $main-brand-colour;
+  transition: all .7s ease-in-out;
+  &:hover {
+    color: $dark-shade;
+    text-decoration: none;
+  }
+}
+
 .brand-button {
   border-radius: 30px;
   background-color: $main-brand-colour;
@@ -187,4 +196,8 @@
   img {
     width: 100%;
   }
+}
+
+#register-form ul {
+  list-style-type: none;
 }
