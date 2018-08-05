@@ -13,6 +13,7 @@ a {
   color: $dark-shade;
   border: 1px solid $main-brand-colour;
   transition: all .7s ease-in-out;
+  min-width: 150px;
 
   &:hover {
     cursor: pointer;

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Checkout{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Checkout</h2>
+    <div id="credit-card-errors" style="display:none;">
+      <div class="alert-message" id="stripe-error-message"></div>
+    </div>
+    <form method="POST" id="payment-form" class="row" action="{% url 'checkout' %}">
+      <div class="col-12 col-md-6">
+        {{ order_form | as_bootstrap }}
+      </div>
+      <div class="col-12 col-md-6">
+        {{ payment_form | as_bootstrap }}
+        <h3>Total: <i class="fas fa-pound-sign"></i>{{ total|floatformat:2 }}</h3>
+        <button id="submit-payment-btn" name="commit" type="submit" class="brand-button button-accent">Pay</button>
+      </div>
+      {% csrf_token %}
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block stripe_js %}
+<script src="https://js.stripe.com/v2/" charset="utf-8"></script>
+<script>
+  //<![CDATA[
+  Stripe.publishableKey = '{{ publishable }}';
+  //]]>
+</script>
+<script src="{% static 'scripts/stripe.js' %}" charset="utf-8"></script>
+{% endblock %}

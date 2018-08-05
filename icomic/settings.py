@@ -33,6 +33,8 @@ DEBUG = development
 
 ALLOWED_HOSTS = [os.environ.get('HOSTNAME')]
 
+STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
 
 # Application definition
 

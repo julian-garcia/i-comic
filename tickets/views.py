@@ -40,6 +40,7 @@ def ticket_add(request):
                 # Add ticket to cart with manually entered price
                 cart = request.session.get('cart', [])
                 cart.append({'title': ticket_form.cleaned_data.get('title'),
+                             'description': ticket_form.cleaned_data.get('description'),
                              'feature_cost': str(ticket_form.cleaned_data.get('feature_cost'))})
                 request.session['cart'] = cart
                 messages.info(request, 'A new feature has been added to your cart.')
