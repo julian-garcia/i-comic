@@ -5,7 +5,7 @@ from .forms import ComicStripForm, ComicStripFrameAddForm, ComicStripFrameEditFo
 from .models import ComicStrip, ComicStripFrame
 
 def comic_strip_listing(request):
-    strips = ComicStrip.objects.all()
+    strips = ComicStrip.objects.all().order_by('title')
 
     paginator = Paginator(strips, 5)
     page = request.GET.get('page')
@@ -15,6 +15,7 @@ def comic_strip_listing(request):
 
 def comic_strip(request, id):
     comic_strip = ComicStrip.objects.get(pk=id)
+    description_words = len(comic_strip.description.split())
     frames = ComicStripFrame.objects.all().filter(comic_strip=comic_strip)
 
     paginator = Paginator(frames, 3)
@@ -23,7 +24,8 @@ def comic_strip(request, id):
 
     return render(request, 'comic_strip.html',
                   {'comic_strip': comic_strip,
-                   'comic_strip_frames': comic_strip_frames})
+                   'comic_strip_frames': comic_strip_frames,
+                   'description_words': description_words})
 
 @login_required
 def comic_strip_add(request):

@@ -67,6 +67,7 @@ a {
   }
 
   .ticket-list-icon {
+    background-color: $main-brand-colour;
     &:hover {
       background-color: $light-shade;
       color: $dark-shade;

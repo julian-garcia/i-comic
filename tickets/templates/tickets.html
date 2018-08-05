@@ -10,62 +10,130 @@
     <h5>Raise a Ticket <a href="{% url 'ticket_add' %}" class="ticket-list-link"><i class="fas fa-plus ticket-list-icon"></i></a></h5>
   </div>
 </div>
-<div class="row">
+<div class="row mb-5">
   <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
-    <ul class="list-group">
-      {% for ticket in ticket_list %}
-        <li class="list-group-item d-flex justify-content-between align-items-center row {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
-          <div class="col-12">
-            <h2 class="d-flex justify-content-between">{{ ticket.title }}
-              <span>
-                <span class="badge badge-pill badge-dark ticket-status">{{ ticket.type }}</span>
-                <span class="badge badge-pill badge-dark ticket-status">{{ ticket.status }}</span>
-              </span>
-            </h2>
-            <p>{{ ticket.description|truncatewords:10 }}</p>
-          </div>
-          <div class="col-12 col-md-6">
-            <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
-          </div>
-          <div class="col-12 col-md-6 text-right">
-            <i class="fas fa-comments ticket-list-icon">
-            {% if ticket.ticketcomment_set.all|length > 0 %}
-            <span class="comment-count">{{ ticket.ticketcomment_set.all|length }}</span>
-            {% endif %}
-            </i>
-            <i class="fas fa-arrow-up ticket-list-icon">
-              {% if ticket.upvotes and ticket.upvotes > 0 %}
-              <span class="comment-count">{{ ticket.upvotes }}</span>
-              {% endif %}
-            </i>
-            <a href="{% url 'ticket_view' ticket.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
-          </div>
-        </li>
-      {% endfor %}
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="open-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="true">Open</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false">Completed</a>
+      </li>
     </ul>
-  </div>
-</div>
-{% if ticket_list.paginator.num_pages > 1 %}
-<div class="row mb-3">
-  <div class="col-12 col-sm-9">
-    <div class="pagination justify-content-center mt-2">
-      <span class="step-links">
-        {% if ticket_list.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ ticket_list.previous_page_number }}">previous</a>
-        {% endif %}
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="open" role="tabpanel" aria-labelledby="open-tab">
+        <ul class="list-group">
+          {% for ticket in ticket_list %}
+            <li class="list-group-item d-flex justify-content-between align-items-center row {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
+              <div class="col-12">
+                <h2 class="d-flex justify-content-between">{{ ticket.title }}
+                  <span>
+                    <span class="badge badge-pill badge-dark ticket-status">{{ ticket.type }}</span>
+                    <span class="badge badge-pill badge-dark ticket-status">{{ ticket.status }}</span>
+                  </span>
+                </h2>
+                <p>{{ ticket.description|truncatewords:10 }}</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
+              </div>
+              <div class="col-12 col-md-6 text-right">
+                <i class="fas fa-comments ticket-list-icon">
+                {% if ticket.ticketcomment_set.all|length > 0 %}
+                <span class="comment-count">{{ ticket.ticketcomment_set.all|length }}</span>
+                {% endif %}
+                </i>
+                <i class="fas fa-arrow-up ticket-list-icon">
+                  {% if ticket.upvotes and ticket.upvotes > 0 %}
+                  <span class="comment-count">{{ ticket.upvotes }}</span>
+                  {% endif %}
+                </i>
+                <a href="{% url 'ticket_view' ticket.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if ticket_list.paginator.num_pages > 1 %}
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="pagination justify-content-center mt-2">
+              <span class="step-links">
+                {% if ticket_list.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ ticket_list.previous_page_number }}">previous</a>
+                {% endif %}
 
-        <span class="current">
-            Page {{ ticket_list.number }} of {{ ticket_list.paginator.num_pages }}.
-        </span>
+                <span class="current">
+                    Page {{ ticket_list.number }} of {{ ticket_list.paginator.num_pages }}.
+                </span>
 
-        {% if ticket_list.has_next %}
-            <a href="?page={{ ticket_list.next_page_number }}">next</a>
-            <a href="?page={{ ticket_list.paginator.num_pages }}">last &raquo;</a>
+                {% if ticket_list.has_next %}
+                    <a href="?page={{ ticket_list.next_page_number }}">next</a>
+                    <a href="?page={{ ticket_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
         {% endif %}
-      </span>
+      </div>
+      <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+        <ul class="list-group">
+          {% for ticket in completed_ticket_list %}
+            <li class="list-group-item d-flex justify-content-between align-items-center row {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
+              <div class="col-12">
+                <h2 class="d-flex justify-content-between">{{ ticket.title }}
+                  <span>
+                    <span class="badge badge-pill badge-dark ticket-status">{{ ticket.type }}</span>
+                    <span class="badge badge-pill badge-dark ticket-status">{{ ticket.status }}</span>
+                  </span>
+                </h2>
+                <p>{{ ticket.description|truncatewords:10 }}</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
+              </div>
+              <div class="col-12 col-md-6 text-right">
+                <i class="fas fa-comments ticket-list-icon">
+                {% if ticket.ticketcomment_set.all|length > 0 %}
+                <span class="comment-count">{{ ticket.ticketcomment_set.all|length }}</span>
+                {% endif %}
+                </i>
+                <i class="fas fa-arrow-up ticket-list-icon">
+                  {% if ticket.upvotes and ticket.upvotes > 0 %}
+                  <span class="comment-count">{{ ticket.upvotes }}</span>
+                  {% endif %}
+                </i>
+                <a href="{% url 'ticket_view' ticket.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if completed_ticket_list.paginator.num_pages > 1 %}
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="pagination justify-content-center mt-2">
+              <span class="step-links">
+                {% if completed_ticket_list.has_previous %}
+                  <a href="?page=1">&laquo; first</a>
+                  <a href="?page={{ completed_ticket_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ completed_ticket_list.number }} of {{ completed_ticket_list.paginator.num_pages }}.
+                </span>
+
+                {% if completed_ticket_list.has_next %}
+                    <a href="?page={{ completed_ticket_list.next_page_number }}">next</a>
+                    <a href="?page={{ completed_ticket_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
-{% endif %}
 {% endblock %}

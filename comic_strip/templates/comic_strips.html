@@ -6,13 +6,13 @@
   <div class="row mb-3">
     <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container {% if forloop.counter|divisibleby:'2' %}light-row{% else %}dark-row{% endif %}">
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4">
           <h2>{{ comic_strip.title }}</h2>
           <h3>{{ comic_strip.author.first_name }} {{ comic_strip.author.last_name }}</h3>
         </div>
-        <div class="col-12 col-md-6 text-center">
+        <div class="col-12 col-md-8 text-center">
           <hr class="d-block d-md-none">
-          <h3 class="text-left">{{ comic_strip.description }}</h3>
+          <h3 class="text-left">{{ comic_strip.description|truncatewords:20 }}</h3>
           <hr class="d-block d-md-none">
           <a class="btn brand-button" href="{% url 'comic_strip' comic_strip.id %}" role="button">View</a>
         </div>

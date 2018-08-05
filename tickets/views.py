@@ -2,22 +2,30 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
 from .models import Ticket, TicketComment, TicketUpvoter
 
 def ticket_listing(request):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.all().filter(~Q(status='Completed') & ~Q(status='Cancelled')).order_by('-upvotes', '-date_raised', 'title')
+    ctickets = Ticket.objects.all().filter(Q(status='Completed') | Q(status='Cancelled')).order_by('-upvotes', '-date_raised', 'title')
 
     paginator = Paginator(tickets, 5)
     page = request.GET.get('page')
     ticket_list = paginator.get_page(page)
 
-    return render(request, 'tickets.html', {'ticket_list': ticket_list})
+    paginator = Paginator(ctickets, 5)
+    page = request.GET.get('page')
+    completed_ticket_list = paginator.get_page(page)
+
+    return render(request, 'tickets.html',
+                  {'ticket_list': ticket_list,
+                   'completed_ticket_list': completed_ticket_list})
 
 def ticket_view(request, id):
     ticket = Ticket.objects.get(pk=id)
-    comments = TicketComment.objects.all().filter(ticket=ticket)
+    comments = TicketComment.objects.all().filter(ticket=ticket).order_by('-date_comment')
 
     paginator = Paginator(comments, 5)
     page = request.GET.get('page')

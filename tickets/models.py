@@ -26,7 +26,7 @@ class Ticket(models.Model):
     type = models.CharField(max_length=10, choices=TICKET_TYPE_CHOICES, default='Bug')
     status = models.CharField(max_length=12, choices=TICKET_STATUS_CHOICES, default='Logged')
     upvotes = models.IntegerField(null=True, blank=True)
-    feature_cost = models.DecimalField("Contribution towards feature development", max_digits=4, decimal_places=2, null=True, blank=True)
+    feature_cost = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return '{0}-{1}'.format(self.title, self.requester)

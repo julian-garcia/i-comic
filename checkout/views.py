@@ -13,7 +13,7 @@ stripe.api_key = settings.STRIPE_SECRET
 def checkout(request):
     cart_upvotes = request.session.get('cart_upvotes', [])
     cart = request.session.get('cart', [])
-    total = sum(i['cost'] for i in cart_upvotes) + sum(i['feature_cost'] for i in cart)
+    total = sum(float(i['cost']) for i in cart_upvotes) + sum(float(i['feature_cost']) for i in cart)
 
     if request.method == 'POST':
         payment_form = PaymentForm(request.POST)

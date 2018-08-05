@@ -12,7 +12,7 @@ class ComicStrip(models.Model):
 
 class ComicStripFrame(models.Model):
     comic_strip = models.ForeignKey(ComicStrip, on_delete=models.CASCADE)
-    narrative = models.TextField()
+    narrative = models.TextField(max_length=300)
     image = models.ImageField(upload_to='images')
     sequence = models.IntegerField(null=False, blank=False)
     move = models.IntegerField(null=True, blank=True)

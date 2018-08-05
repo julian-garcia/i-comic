@@ -5,13 +5,32 @@
 <div class="row mb-3">
   <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-lg-3">
         <h2>{{ comic_strip.title }}</h2>
         <h3>{{ comic_strip.author.first_name }} {{ comic_strip.author.last_name }}</h3>
       </div>
-      <div class="col-12 col-md-6 text-center">
+      <div class="col-12 col-lg-9 text-center">
         <hr class="d-block d-md-none">
-        <h3 class="text-left">{{ comic_strip.description }}</h3>
+        <h3 class="text-left">{{ comic_strip.description|truncatewords:20 }}</h3>
+        {% if description_words > 20 %}
+        <button type="button" class="btn brand-button" data-toggle="modal" data-target="#modalLong">
+          Full description...
+        </button>
+        <div class="modal fade" id="modalLong" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>{{ comic_strip.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
         <hr class="d-block d-md-none">
         <a class="btn brand-button" href="{% url 'comic_strip_frame_add' comic_strip.id %}" role="button">Add Frame</a>
       </div>
@@ -19,7 +38,7 @@
   </div>
 </div>
 {% if comic_strip_frames %}
-<div class="row comic-strip-frames hand-drawn-border pb-2">
+<div class="row comic-strip-frames hand-drawn-border pb-2 mb-5">
   {% for frame in comic_strip_frames %}
     <div class="col-12 col-sm-6 col-md-4 single-frame">
       <img src="{{ frame.image.url }}">

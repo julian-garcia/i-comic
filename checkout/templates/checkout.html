@@ -8,7 +8,9 @@
   <div class="col-12 col-sm-9 text-center">
     <h2>Checkout</h2>
     <div id="credit-card-errors" style="display:none;">
-      <div class="alert-message" id="stripe-error-message"></div>
+      <div class='alert alert-light fade show'>
+        <h3 id="stripe-error-message"></h3>
+      </div>
     </div>
     <form method="POST" id="payment-form" class="row" action="{% url 'checkout' %}">
       <div class="col-12 col-md-6">
