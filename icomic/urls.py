@@ -21,6 +21,7 @@ from tickets import urls as urls_tickets
 from accounts import urls as urls_accounts
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
+from productivity import urls as urls_productivity
 from django.conf.urls.static import static
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -32,4 +33,5 @@ urlpatterns = [
     path('account/', include(urls_accounts)),
     path('cart/', include(urls_cart)),
     path('checkout/', include(urls_checkout)),
+    path('productivity/', include(urls_productivity)),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

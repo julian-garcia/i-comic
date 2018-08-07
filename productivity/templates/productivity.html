@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Productivity{% endblock %}
+
+{% block content %}
+<h1>Productivity</h1>
+<div class="row mb-5">
+  <div class="col-12 col-sm-9 p-0 p-md-3 hand-drawn-border comic-strip-container">
+    <div class="ct-chart ct-octave chart-productivity"></div>
+  </div>
+</div>
+<div class="row mb-5">
+  <div class="col-12 col-sm-9 comic-strip-container">
+    <h2>Most Upvoted Features</h2>
+    <div class="row top-tickets features">
+      <div class="col-4 p-0">
+        <div class="list-group" id="list-tab" role="tablist">
+          {% for item in top_feature_data %}
+          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="list-{{ forloop.counter }}-list" data-toggle="list" href="#list-{{ forloop.counter }}" role="tab" aria-controls=""><h4>{{ item.title }}</h4></a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-8 p-0 top-tickets-right">
+        <div class="tab-content" id="nav-tabContent">
+          {% for item in top_feature_data %}
+          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="list-{{ forloop.counter }}" role="tabpanel" aria-labelledby="list-{{ forloop.counter }}-list">
+            <br>
+            <h5>Upvotes: {{ item.upvotes }}</h5>
+            <p>{{ item.description }}</p>
+            <a href="{% url 'ticket_view' item.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
+            <br>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mb-5">
+  <div class="col-12 col-sm-9 comic-strip-container">
+    <h2>Most Upvoted Bugs</h2>
+    <div class="row top-tickets bugs">
+      <div class="col-8 p-0 top-tickets-right">
+        <div class="tab-content" id="nav-tabContent">
+          {% for item in top_bug_data %}
+          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="list-{{ forloop.counter }}-bug" role="tabpanel" aria-labelledby="list-{{ forloop.counter }}-list">
+            <br>
+            <h5>Upvotes: {{ item.upvotes }}</h5>
+            <p>{{ item.description }}</p>
+            <a href="{% url 'ticket_view' item.id %}" class="ticket-list-link"><i class="fas fa-ticket-alt ticket-list-icon"></i></a>
+            <br>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-4 p-0">
+        <div class="list-group" id="list-tab" role="tablist">
+          {% for item in top_bug_data %}
+          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="list-{{ forloop.counter }}-list" data-toggle="list" href="#list-{{ forloop.counter }}-bug" role="tab" aria-controls=""><h4>{{ item.title }}</h4></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block chart_js %}
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-axistitle@0.0.4/dist/chartist-plugin-axistitle.min.js" charset="utf-8"></script>
+  <script>
+    var feature_data = {{ feature_data|safe }};
+    var bug_data = {{ bug_data|safe }};
+  </script>
+  <script src="{% static 'scripts/charts.js' %}" charset="utf-8"></script>
+{% endblock %}

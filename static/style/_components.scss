@@ -203,3 +203,47 @@ a {
 #register-form ul {
   list-style-type: none;
 }
+
+.top-tickets {
+  &.features {
+    .list-group-item:first-child {
+      border-top-right-radius: 0;
+    }
+    .list-group-item:last-child {
+      border-bottom-right-radius: 0;
+    }
+    .tab-content>.active, .list-group-item.active {
+      background: lighten($main-brand-colour, 20%);
+      border-color: transparent;
+      color: $dark-shade;
+    }
+  }
+
+  &.bugs {
+    .list-group-item:first-child {
+      border-top-left-radius: 0;
+    }
+    .list-group-item:last-child {
+      border-bottom-left-radius: 0;
+    }
+    .tab-content>.active, .list-group-item.active {
+      background: lighten($accent-colour, 20%);
+      border-color: transparent;
+      color: $dark-shade;
+    }
+  }
+
+  .top-tickets-right {
+    position: relative;
+    .tab-content{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      .tab-pane {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

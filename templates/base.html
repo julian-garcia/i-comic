@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Arsenal|Kalam|Permanent+Marker" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   <link rel="stylesheet" href="{% static 'style/main.min.css' %}">
   <title>{% block page_title %}{% endblock %}</title>
 </head>
@@ -50,7 +51,7 @@
         </a>
       </li>
       <li class="home-menu-item">
-        <a class="home-menu-link" href="#">
+        <a class="home-menu-link" href="{% url 'productivity' %}">
           <span class="home-menu-text home-menu-text-hide">Productivity</span>
           <i class="fas fa-chart-line home-menu-item-icon"></i>
         </a>
@@ -97,5 +98,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="{% static 'scripts/ui.js' %}"></script>
   {% block stripe_js %}{% endblock %}
+  {% block chart_js %}{% endblock %}
 </body>
 </html>

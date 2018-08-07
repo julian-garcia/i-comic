@@ -16,7 +16,7 @@ def comic_strip_listing(request):
 def comic_strip(request, id):
     comic_strip = ComicStrip.objects.get(pk=id)
     description_words = len(comic_strip.description.split())
-    frames = ComicStripFrame.objects.all().filter(comic_strip=comic_strip)
+    frames = ComicStripFrame.objects.all().filter(comic_strip=comic_strip).order_by('sequence')
 
     paginator = Paginator(frames, 3)
     page = request.GET.get('page')
