@@ -39,4 +39,25 @@ $(document).ready(function() {
     }
   });
 
+  $('.ct-chart').show();
+  $('.ct-chart-week').hide();
+  $('.ct-chart-month').hide();
+  
+  $('#chart-button-daily').click(function() {
+    $('.ct-chart').show();
+    $('.ct-chart-week').hide();
+    $('.ct-chart-month').hide();
+  });
+
+  $('#chart-button-weekly').click(function() {
+    $('.ct-chart').hide();
+    $('.ct-chart-week').show();
+    $('.ct-chart-month').hide();
+  });
+
+  $('#chart-button-monthly').click(function() {
+    $('.ct-chart').hide();
+    $('.ct-chart-week').hide();
+    $('.ct-chart-month').show();
+  });
 });
