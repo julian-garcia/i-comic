@@ -15,11 +15,20 @@ a {
   transition: all .7s ease-in-out;
   min-width: 150px;
 
+  &.alternate {
+    background-color: $accent-colour;
+    border-color: transparent;
+  }
+
   &:hover {
     cursor: pointer;
     color: $main-brand-colour;
     background-color: $light-shade;
   }
+}
+
+a.brand-button-content {
+  padding: 0 20px;
 }
 
 .button-accent {
@@ -204,6 +213,18 @@ a {
   list-style-type: none;
 }
 
+.chart-productivity {
+  .ct-series-a .ct-line,
+  .ct-series-a .ct-point {
+    stroke: $main-brand-colour;
+  }
+
+  .ct-series-b .ct-line,
+  .ct-series-b .ct-point {
+    stroke: $accent-colour;
+  }
+}
+
 .top-tickets {
   &.features {
     .list-group-item:first-child {
@@ -241,9 +262,17 @@ a {
       width: 100%;
       .tab-pane {
         position: absolute;
+        padding: 0 20px;
         height: 100%;
         width: 100%;
       }
     }
   }
+}
+
+.feature-topic-link {
+  display: block;
+}
+.forum-topic-row {
+  background: $light-shade;
 }

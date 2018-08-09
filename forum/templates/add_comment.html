@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Forum Comment{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Comment on Forum Topic: {{ topic.topic_title }}</h2>
+    <form method="POST" id="comment-add-form" action="{% url 'add_comment' topic.id %}">
+      {{ comment_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Publish Comment</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

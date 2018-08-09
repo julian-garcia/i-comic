@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}i-Comic Forum{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-md-3">
+    <h1>Forum</h1>
+  </div>
+  <div class="col-12 col-md-9">
+    <a href="{% url 'add_comment' topic.id %}" class="brand-button brand-button-content">Comment <i class="fas fa-plus"></i></a>
+    <a href="{% url 'forum' %}" class="brand-button brand-button-content">Back To Forum <i class="fas fa-chevron-left"></i></a>
+  </div>
+</div>
+<h2>{{ topic.topic_title }}</h2>
+{% for comment in topic_comments %}
+<div class="row forum-comment mb-3">
+  <div class="col-12 col-md-9 p-3 {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <p>{{ comment.comment }}</p>
+        <h5>{{ comment.author.first_name }} {{ comment.author.last_name }}, {{ comment.date_created }}</h5>
+      </div>
+      <div class="col-12 col-md-6 text-right">
+        <a href="#" class="ticket-list-link"><i class="fas fa-reply ticket-list-icon"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% if topic_comments.paginator.num_pages > 1 %}
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="pagination justify-content-center mt-2">
+      <span class="step-links">
+        {% if topic_comments.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ topic_comments.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ topic_comments.number }} of {{ topic_comments.paginator.num_pages }}.
+        </span>
+
+        {% if topic_comments.has_next %}
+            <a href="?page={{ topic_comments.next_page_number }}">next</a>
+            <a href="?page={{ topic_comments.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

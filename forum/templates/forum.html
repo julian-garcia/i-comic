@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}i-Comic Forum{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12 col-md-6">
+    <h1>Forum</h1>
+  </div>
+  <div class="col-12 col-md-6">
+    <h5>Add a Topic <a href="{% url 'add_topic' %}" class="ticket-list-link"><i class="fas fa-plus ticket-list-icon"></i></a></h5>
+  </div>
+</div>
+{% for topic in topic_list %}
+<div class="row mb-4">
+  <div class="col-12 col-sm-9 p-0 p-md-3 hand-drawn-border comic-strip-container forum-topic-row text-center">
+    <a href="{% url 'view_topic' topic.id %}" class="feature-topic-link"><h2>{{ topic.topic_title }}</h2></a>
+  </div>
+</div>
+{% endfor %}
+{% if topic_list.paginator.num_pages > 1 %}
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="pagination justify-content-center mt-2">
+      <span class="step-links">
+        {% if topic_list.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ topic_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ topic_list.number }} of {{ topic_list.paginator.num_pages }}.
+        </span>
+
+        {% if topic_list.has_next %}
+            <a href="?page={{ topic_list.next_page_number }}">next</a>
+            <a href="?page={{ topic_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

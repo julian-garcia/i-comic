@@ -39,25 +39,35 @@ $(document).ready(function() {
     }
   });
 
+  $('#chart-button-daily').addClass('alternate')
   $('.ct-chart').show();
   $('.ct-chart-week').hide();
   $('.ct-chart-month').hide();
-  
+
   $('#chart-button-daily').click(function() {
-    $('.ct-chart').show();
+    $(this).addClass('alternate')
+    $('#chart-button-weekly').removeClass('alternate')
+    $('#chart-button-monthly').removeClass('alternate')
+    $('.ct-chart').fadeIn("slow");
     $('.ct-chart-week').hide();
     $('.ct-chart-month').hide();
   });
 
   $('#chart-button-weekly').click(function() {
+    $(this).addClass('alternate')
+    $('#chart-button-daily').removeClass('alternate')
+    $('#chart-button-monthly').removeClass('alternate')
     $('.ct-chart').hide();
-    $('.ct-chart-week').show();
+    $('.ct-chart-week').fadeIn("slow");
     $('.ct-chart-month').hide();
   });
 
   $('#chart-button-monthly').click(function() {
+    $(this).addClass('alternate')
+    $('#chart-button-daily').removeClass('alternate')
+    $('#chart-button-weekly').removeClass('alternate')
     $('.ct-chart').hide();
     $('.ct-chart-week').hide();
-    $('.ct-chart-month').show();
+    $('.ct-chart-month').fadeIn("slow");
   });
 });
