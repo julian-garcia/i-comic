@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}i-Comic Forum - Developer Documentation{% endblock %}
+{% block content %}
+<h1>Developer Documentation</h1>
+<div id="doc-content" class="row documentation">
+  <div class="col-12 col-md-3 d-none d-md-block">
+    <nav id="doc-toc" class="navbar navbar-light bg-light">
+      <nav class="nav nav-pills flex-column">
+        <a class="nav-link active doc-content-item" href="#item-0">About</a>
+        <a class="nav-link active doc-content-item" href="#item-1">Apps</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-1-1">comic_strip</a>
+          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-1-2">tickets</a>
+        </nav>
+        <a class="nav-link doc-content-item" href="#item-2">Models</a>
+        <nav class="nav nav-pills flex-column">
+          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-2-1">Ticket</a>
+          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-2-3">TicketComment</a>
+        </nav>
+        <a class="nav-link doc-content-item" href="#item-3">Views</a>
+        <a class="nav-link doc-content-item" href="#item-4">Templates</a>
+      </nav>
+    </nav>
+  </div>
+  <div class="col-12 col-md-9">
+    <div data-spy="scroll" data-target="#doc-toc" data-offset="-30">
+      <div class="doc-section">
+        <h4 id="item-0" class="mb-5">This site was built using the Django framework (v2.0.7). Each section has been implemented within separate apps, each detailed in this documentation. The code is <a href="#">available on github</a>.</h4>
+      </div>
+      <div class="doc-section">
+        <h4 id="item-1">Apps</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><h3>accounts</h3>
+            <span>(User account registration, sign in/out and profile)</span></li>
+          <li class="list-group-item"><h3>comic_strip</h3>
+            <span>(Build Customised comic strips)</span></li>
+          <li class="list-group-item"><h3>tickets</h3>
+            <span>(Raise bugs/features with upvotes/comments)</span></li>
+          <li class="list-group-item"><h3>forum</h3>
+            <span>(Define and comment on topics for discussion)</span></li>
+          <li class="list-group-item"><h3>productivity</h3>
+            <span>(Graphs summarising tickets raised over time)</span></li>
+          <li class="list-group-item"><h3>cart</h3>
+            <span>(New features and feature upvote purchases)</span></li>
+          <li class="list-group-item"><h3>checkout</h3>
+            <span>(Process payments using Stripe)</span></li>
+        </ul>
+      </div>
+      <div class="doc-section">
+        <h5 id="item-1-1">comic_strip</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
+      </div>
+      <div class="doc-section">
+        <h5 id="item-1-2">tickets</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
+      </div>
+      <div class="doc-section">
+        <h4 id="item-2">Models</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -7,29 +7,48 @@
     <h1>Forum</h1>
   </div>
   <div class="col-12 col-md-9">
-    <a href="{% url 'add_comment' topic.id %}" class="brand-button brand-button-content">Comment <i class="fas fa-plus"></i></a>
-    <a href="{% url 'forum' %}" class="brand-button brand-button-content">Back To Forum <i class="fas fa-chevron-left"></i></a>
+    <a href="{% url 'add_comment' topic.id %}" class="brand-button brand-button-content mb-3 d-inline-block d-md-inline text-center">
+      Comment <i class="fas fa-plus"></i>
+    </a>
+    <a href="{% url 'forum' %}" class="brand-button brand-button-content mb-3 d-inline-block d-md-inline text-center">
+      Back To Forum <i class="fas fa-chevron-left"></i>
+    </a>
   </div>
 </div>
 <h2>{{ topic.topic_title }}</h2>
 {% for comment in topic_comments %}
-<div class="row forum-comment mb-3">
-  <div class="col-12 col-md-9 p-3 {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
+<div class="row forum-comment mt-4 mb-3">
+  <div class="col-12 col-md-9 p-3 hand-drawn-border {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
     <div class="row">
       <div class="col-12 col-md-6">
         <p>{{ comment.comment }}</p>
-        <h5>{{ comment.author.first_name }} {{ comment.author.last_name }}, {{ comment.date_created }}</h5>
+        <h5>{{ comment.author.first_name }} {{ comment.author.last_name }},
+            {{ comment.date_created|date:'jS M Y, H:i' }}</h5>
       </div>
       <div class="col-12 col-md-6 text-right">
-        <a href="#" class="ticket-list-link"><i class="fas fa-reply ticket-list-icon"></i></a>
+        <a href="{% url 'add_reply' comment.id %}" class="ticket-list-link"><i class="fas fa-reply ticket-list-icon"></i></a>
       </div>
     </div>
   </div>
 </div>
+{% for reply in replies %}
+  {% if reply.forum_comment == comment %}
+  <div class="row forum-comment-reply mb-2">
+    <div class="col-12 col-md-9 d-flex justify-content-between">
+      <p class="d-inline">{{ reply.comment }}</p>
+      <span>{{ reply.author.first_name }} {{ reply.author.last_name }},<br>
+            {{ reply.date_created|date:'jS M Y, H:i' }}</span>
+    </div>
+    <div class="col-12 col-md-9">
+      <hr>
+    </div>
+  </div>
+  {% endif %}
+{% endfor %}
 {% endfor %}
 {% if topic_comments.paginator.num_pages > 1 %}
 <div class="row mb-3">
-  <div class="col-12">
+  <div class="col-12 col-md-9">
     <div class="pagination justify-content-center mt-2">
       <span class="step-links">
         {% if topic_comments.has_previous %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_tags %}
+{% block page_title %}i-Comic - Reply{% endblock %}
+{% block content %}
+<div class="row mb-3">
+  <div class="col-12 col-sm-9 text-center">
+    <h2>Reply to comment: {{ comment.comment }}</h2>
+    <form method="POST" id="reply-add-form" action="{% url 'add_reply' comment.id %}">
+      {{ reply_form | as_bootstrap }}
+      {% csrf_token %}
+      <button type="submit" class="brand-button button-accent">Publish Reply</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

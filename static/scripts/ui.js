@@ -25,6 +25,8 @@ $(document).ready(function() {
     $('#home-toggle-dropdown').slideUp();
   });
 
+  $('body').scrollspy({ target: '#doc-toc' });
+  
   // Show/hide payment amount field on the "raise a bug/feature" form
   // Features should be paid for whereas bugs are raised for free
   $('#div_id_feature_cost').hide();

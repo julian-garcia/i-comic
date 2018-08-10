@@ -30,14 +30,14 @@ def view_topic(request, id):
     topic = ForumTopic.objects.get(pk=id)
     comments = ForumComment.objects.filter(forum_topic=topic).order_by('-date_created')
     ids = [c.id for c in comments]
-    replies = ForumCommentReply.objects.filter(forum_comment__in=ids).order_by('-date_created')
+    replies = ForumCommentReply.objects.filter(forum_comment__in=ids).order_by('date_created')
 
     paginator = Paginator(comments, 5)
     page = request.GET.get('page')
     topic_comments = paginator.get_page(page)
 
     return render(request, 'forum_topic.html', {'topic': topic,
-                                                'topic_comments': topic_comments, 
+                                                'topic_comments': topic_comments,
                                                 'replies': replies})
 
 @login_required
@@ -56,3 +56,21 @@ def add_comment(request, id):
         comment_form = ForumAddCommentForm()
 
     return render(request, 'add_comment.html', {'comment_form': comment_form, 'topic': topic})
+
+@login_required
+def add_reply(request, id):
+    comment = ForumComment.objects.get(pk=id)
+    topic = ForumTopic.objects.get(pk=comment.forum_topic.id)
+
+    if request.method == 'POST':
+        reply_form = ForumAddReplyForm(request.POST)
+        if reply_form.is_valid():
+            reply = reply_form.save(commit=False)
+            reply.author = request.user
+            reply.forum_comment = comment
+            reply.save()
+            return redirect(reverse('view_topic', args=[topic.id]))
+    else:
+        reply_form = ForumAddReplyForm()
+
+    return render(request, 'add_reply.html', {'reply_form': reply_form, 'comment': comment})

@@ -273,6 +273,29 @@ a.brand-button-content {
 .feature-topic-link {
   display: block;
 }
+
 .forum-topic-row {
   background: $light-shade;
+}
+
+.documentation {
+  margin-top: 2rem;
+
+  #doc-toc {
+    position: fixed;
+    top: 60px;
+    overflow-y: scroll;
+    max-height: calc(100vh - 1rem);
+  }
+
+  .doc-section {
+    min-height: 90vh;
+    margin-bottom: 3rem;
+  }
+
+  .doc-content-item.active {
+    border-radius: 30px;
+    background-color: $main-brand-colour;
+    color: $dark-shade;
+  }
 }
