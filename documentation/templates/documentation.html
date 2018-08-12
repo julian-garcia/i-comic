@@ -11,118 +11,265 @@
         <a class="nav-link doc-content-item" href="#item-1">Apps</a>
         <a class="nav-link doc-content-item" href="#item-2">Models</a>
         <a class="nav-link doc-content-item" href="#item-3">Views</a>
-        <a class="nav-link doc-content-item" href="#item-4">Templates</a>
       </nav>
     </nav>
   </div>
   <div class="col-12 col-md-9">
     <div data-spy="scroll" data-target="#doc-toc" data-offset="0">
-      <div class="doc-section">
+      <div class="doc-section about">
         <h4 class="mb-5 mt-0">This site was built using the Django web framework (v2.0.7). Each section has been implemented within separate apps, each detailed in this documentation. The code is <a href="https://github.com/julian-garcia/i-comic" target="_blank">available on github</a>. If you are unfamiliar with Django, you can find out more on the official doc site: <a href="https://docs.djangoproject.com" target="_blank">docs.djangoproject.com</a></h4>
       </div>
+      <hr class="doc-separator" id="item-1">
       <div class="doc-section">
-        <h3 id="item-1">Apps</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><span>accounts (User account registration, sign in/out and profile)</span></li>
-          <li class="list-group-item"><span>cart (New features and feature upvote purchases)</span></li>
-          <li class="list-group-item"><span>checkout (Process payments using Stripe)</span></li>
-          <li class="list-group-item"><span>comic_strip (Build Customised comic strips)</span></li>
-          <li class="list-group-item"><span>forum (Define and comment on topics for discussion)</span></li>
-          <li class="list-group-item"><span>productivity (Graphs summarising tickets raised over time)</span></li>
-          <li class="list-group-item"><span>tickets (Raise bugs/features with upvotes/comments)</span></li>
-        </ul>
-        <h4 id="item-1-1">accounts</h4>
-        <p>User sign in/out and registration and profile display. The login_required decorator is used across several apps to redirect signed out users to the login page with a subsequent redirection back to the page where the access attempt took place. This is based on a modified user model that uses email address + password authentication instead of user id and password.</p>
-        <h5>Models: <a href="#">MyUserManager</a> and <a href="#">User</a></h5>
-        <h5>Urls:</h5>
-        <ul class="list-group">
-          <li class="list-group-item">"login" - email address and password sign in</li>
-          <li class="list-group-item">"logout"</li>
-          <li class="list-group-item">"register" - full name, email address and new password</li>
-        </ul>
-        <h4 id="item-1-4">comic_strip</h4>
-        <p>Signed in users can add a new comic strip and add new frames to their own comic strips. Guests can view the overall comic strip listing and view individual comic strips.</p>
-        <h5>Models: <a href="#item-2-1">ComicStrip</a> and <a href="#item-2-2">ComicStripFrame</a></h5>
-        <h5>Urls:</h5>
-        <ul class="list-group">
-          <li class="list-group-item">"/" - home page - view a paginated listing of all comic strips</li>
-          <li class="list-group-item">"add" - add a comic strip</li>
-          <li class="list-group-item">"view/<comic strip id>" - view a comic strip</li>
-          <li class="list-group-item">"add-frame/<comic strip id>" - add a comic strip frame</li>
-        </ul>
-        <h4 id="item-1-7">tickets</h4>
-        <p>Bugs can be raised by signed in users. Similarly, new features can be requested - these need to be paid for so this app ties in with the cart and checkout apps. Users marked as staff can edit tickets to update their status and enter the implemented/proposed solution or next steps.</p>
-        <h5>Models: <a href="#">Ticket</a>, <a href="#">TicketUpvoter</a> and <a href="#">TicketComment</a></h5>
-        <h5>Urls:</h5>
-        <ul class="list-group doc-section">
-          <li class="list-group-item">"tickets" - paginated listing of all bugs and features</li>
-          <li class="list-group-item">"add" - add a comic strip</li>
-          <li class="list-group-item">"view/<comic strip id>" - view a comic strip</li>
-          <li class="list-group-item">"add-frame/<comic strip id>" - add a comic strip frame</li>
-        </ul>
+        <h3>Apps</h3>
+        <div class="shaded-row">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span>accounts (User account registration, sign in/out and profile)</span></li>
+            <li class="list-group-item"><span>cart (New features and feature upvote purchases)</span></li>
+            <li class="list-group-item"><span>checkout (Process payments using Stripe)</span></li>
+            <li class="list-group-item"><span>comic_strip (Build Customised comic strips)</span></li>
+            <li class="list-group-item"><span>forum (Define and comment on topics for discussion)</span></li>
+            <li class="list-group-item"><span>productivity (Graphs summarising tickets raised over time)</span></li>
+            <li class="list-group-item"><span>tickets (Raise bugs/features with upvotes/comments)</span></li>
+          </ul>
+        </div>
+        <div class="unshaded-row">
+          <h4 class="mt-0 sub-title">accounts</h4>
+          <p>User sign in/out and registration and profile display. The login_required decorator is used across several apps to redirect signed out users to the login page with a subsequent redirection back to the page where the access attempt took place. This is based on a modified user model that uses email address + password authentication instead of user id and password.</p>
+          <h5>Models: <a href="#MyUserManager">MyUserManager</a> and <a href="#User">User</a></h5>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"login" - email address and password sign in</li>
+            <li class="list-group-item">"logout"</li>
+            <li class="list-group-item">"register" - full name, email address and new password</li>
+          </ul>
+        </div>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">cart</h4>
+          <p>The cart is for users to purchase feature upvotes and to request new features. Browser session variables are used to populate the cart before ultimately populating the backend database via the checkout app.</p>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"cart" - listing of all features/upvotes in the current session</li>
+            <li class="list-group-item">"adjust-cart/< title of ticket >" - adjust the price of a new feature</li>
+            <li class="list-group-item">"adjust-upvote-cart/<ticket id>" - adjust the amount on offer for an upvote</li>
+          </ul>
+        </div>
+        <div class="unshaded-row">
+          <h4 class="mt-0 sub-title">checkout</h4>
+          <p>Gathers cart contents and generates a single Stripe transaction. Providing a successful payment, this  stores the transaction in the backend (excluding payment details) and empties the cart.</p>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"checkout" - listing of all features/upvotes in the current session</li>
+          </ul>
+        </div>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">comic_strip</h4>
+          <p>Signed in users can add a new comic strip and add new frames to their own comic strips. Guests can view the overall comic strip listing and view individual comic strips.</p>
+          <h5>Models: <a href="#ComicStrip">ComicStrip</a> and <a href="#ComicStripFrame">ComicStripFrame</a></h5>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"/" - home page - view a paginated listing of all comic strips</li>
+            <li class="list-group-item">"add" - add a comic strip</li>
+            <li class="list-group-item">"view/< comic strip id >" - view a comic strip</li>
+            <li class="list-group-item">"add-frame/< comic strip id >" - add a comic strip frame</li>
+          </ul>
+        </div>
+        <div class="unshaded-row">
+          <h4 class="mt-0 sub-title">forum</h4>
+          <p>A simplified forum allowing user based discussion on comic related topics. Guests can only view forum topics and comments.</p>
+          <h5>Models: <a href="#ForumTopic">ForumTopic</a>, <a href="#ForumComment">ForumComment</a> and <a href="#ForumCommentReply">ForumCommentReply</a></h5>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"forum" - list of forum topics</li>
+            <li class="list-group-item">"add-topic" - add a new forum topic</li>
+            <li class="list-group-item">"view/< topic id >" - view all comments for a forum topic</li>
+            <li class="list-group-item">"add-comment/< topic id >" - make a comment on a forum topic</li>
+            <li class="list-group-item">"reply/< comment id >" - reply to a comment within a forum topic</li>
+          </ul>
+        </div>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">tickets</h4>
+          <p>Bugs can be raised by signed in users. Similarly, new features can be requested - these need to be paid for so this app ties in with the cart and checkout apps. Users marked as staff can edit tickets to update their status and enter the implemented/proposed solution or next steps.</p>
+          <h5>Models: <a href="#Ticket">Ticket</a>, <a href="#TicketUpvoter">TicketUpvoter</a> and <a href="#TicketComment">TicketComment</a></h5>
+          <h5>Urls:</h5>
+          <ul class="list-group">
+            <li class="list-group-item">"tickets" - paginated listing of all bugs and features, sorted by descending upvotes</li>
+            <li class="list-group-item">"add" - add a comic strip</li>
+            <li class="list-group-item">"edit/< ticket id >" - edit a ticket (staff only)</li>
+            <li class="list-group-item">"view/< ticket id >" - view a ticket, user has access to upvote and comment from here. A paginated list of comments is available.</li>
+            <li class="list-group-item">"upvote/< ticket id >" - upvote a ticket, only one upvote is allowed per user</li>
+            <li class="list-group-item">"comment/< ticket id >" - comment on a ticket, no user limit on comments</li>
+          </ul>
+        </div>
       </div>
+      <hr class="doc-separator" id="item-2">
       <div class="doc-section">
-        <h3 id="item-2">Models</h3>
-        <p>"ComicStrip" handles user entry of an overall comic strip title and description entry. It joins to ComicStripFrame whereby multiple frames can be added, each with its own image and narrative.</p>
-        <figure>
-          <figcaption><h5 id="item-2-1">ComicStrip</h5></figcaption>
-          <pre>
-            <code>
-  title       = models.CharField(max_length=100, blank=False)
-  description = models.TextField()
-  author      = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             related_name='contacts', on_delete=models.CASCADE)</code>
-          </pre>
-        </figure>
-        <figure>
-          <figcaption><h5 id="item-2-2">ComicStripFrame</h5></figcaption>
-          <pre>
-            <code>
-  comic_strip = models.ForeignKey(ComicStrip, on_delete=models.CASCADE)
-  narrative   = models.TextField(max_length=300)
-  image       = models.ImageField(upload_to='images')
-  sequence    = models.IntegerField(null=False, blank=False)
-  move        = models.IntegerField(null=True, blank=True)
-            </code>
-          </pre>
-        </figure>
-        <figure>
-          <figcaption><h5 id="item-2-9">Ticket</h5></figcaption>
-          <pre>
-            <code>
-  requester        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  title            = models.CharField(max_length=50)
-  description      = models.TextField()
-  solution         = models.TextField('Solution / Proposed solution', null=True, blank=True)
-  date_raised      = models.DateTimeField(auto_now_add=True)
-  date_last_saved  = models.DateTimeField(auto_now=True)
-  type             = models.CharField(max_length=10, choices=TICKET_TYPE_CHOICES, default='Bug')
-  status           = models.CharField(max_length=12, choices=TICKET_STATUS_CHOICES, default='Logged')
-  upvotes          = models.IntegerField(null=True, blank=True)
-  feature_cost     = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
-            </code>
-          </pre>
-        </figure>
-        <figure>
-          <figcaption><h5 id="item-2-10">TicketComment</h5></figcaption>
-          <pre>
-            <code>
-  author       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  ticket       = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-  date_comment = models.DateTimeField(auto_now_add=True)
-  comment      = models.TextField()
-            </code>
-          </pre>
-        </figure>
-        <figure>
-          <figcaption><h5 id="item-2-11">TicketUpvoter</h5></figcaption>
-          <pre>
-            <code>
-  upvoter_user   = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-  upvoter_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-            </code>
-          </pre>
-        </figure>
+        <h3>Models</h3>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">accounts</h4>
+          <figure>
+            <figcaption><h5 id="MyUserManager">MyUserManager (BaseUserManager)</h5></figcaption>
+            <p>Re-definition of create_user and create_superuser functions to adjust for email based authentication instead of user name.</p>
+          </figure>
+          <figure>
+            <figcaption><h5 id="User">User (AbstractBaseUser)</h5></figcaption>
+            <pre>
+              <code>
+    email          = models.EmailField(unique=True, null=True)
+    first_name     = models.CharField(max_length=50, null=True, blank=True)
+    last_name      = models.CharField(max_length=50, null=True, blank=True)
+    is_staff       = models.BooleanField('staff status', default=False)
+    is_active      = models.BooleanField('active', default=True)
+    USERNAME_FIELD = 'email'
+    objects        = MyUserManager()
+              </code>
+            </pre>
+          </figure>
+        </div>
+        <div class="unshaded-row">
+          <h4 class="mt-0 sub-title">checkout</h4>
+          <figure>
+            <figcaption><h5 id="Order">Order</h5></figcaption>
+            <pre>
+              <code>
+    full_name       = models.CharField(max_length=50, blank=False)
+    phone_number    = models.CharField(max_length=20, blank=False)
+    country         = models.CharField(max_length=40, blank=False)
+    postcode        = models.CharField(max_length=20, blank=True)
+    town_or_city    = models.CharField(max_length=40, blank=False)
+    street_address1 = models.CharField(max_length=40, blank=False)
+    street_address2 = models.CharField(max_length=40, blank=False)
+    county          = models.CharField(max_length=40, blank=False)
+    date            = models.DateField(auto_now_add=True)
+              </code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="OrderTransaction">OrderTransaction</h5></figcaption>
+            <pre>
+              <code>
+    order  = models.ForeignKey(Order, null=False, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, null=False, on_delete=models.CASCADE)
+    cost   = models.DecimalField(max_digits=4, decimal_places=2, blank=False)
+              </code>
+            </pre>
+          </figure>
+        </div>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">comic_strip</h4>
+          <figure>
+            <figcaption><h5 id="ComicStrip">ComicStrip</h5></figcaption>
+            <pre>
+              <code>
+    title       = models.CharField(max_length=100, blank=False)
+    description = models.TextField()
+    author      = models.ForeignKey(settings.AUTH_USER_MODEL,
+                               related_name='contacts', on_delete=models.CASCADE)</code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="ComicStripFrame">ComicStripFrame</h5></figcaption>
+            <pre>
+              <code>
+    comic_strip = models.ForeignKey(ComicStrip, on_delete=models.CASCADE)
+    narrative   = models.TextField(max_length=300)
+    image       = models.ImageField(upload_to='images')
+    sequence    = models.IntegerField(null=False, blank=False)
+    move        = models.IntegerField(null=True, blank=True)
+              </code>
+            </pre>
+          </figure>
+        </div>
+        <div class="unshaded-row">
+          <h4 class="mt-0 sub-title">forum</h4>
+          <figure>
+            <figcaption><h5 id="ForumTopic">ForumTopic</h5></figcaption>
+            <pre>
+              <code>
+    topic_title  = models.CharField(max_length=150)
+    date_created = models.DateTimeField(auto_now_add=True)
+              </code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="ForumComment">ForumComment</h5></figcaption>
+            <pre>
+              <code>
+    forum_topic  = models.ForeignKey(ForumTopic, on_delete=models.CASCADE)
+    author       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment      = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+              </code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="ForumCommentReply">ForumCommentReply</h5></figcaption>
+            <pre>
+              <code>
+    forum_comment = models.ForeignKey(ForumComment, on_delete=models.CASCADE)
+    author        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment       = models.TextField()
+    date_created  = models.DateTimeField(auto_now_add=True)
+              </code>
+            </pre>
+          </figure>
+        </div>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">tickets</h4>
+          <figure>
+            <figcaption><h5 id="Ticket">Ticket</h5></figcaption>
+            <pre>
+              <code>
+    requester        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title            = models.CharField(max_length=50)
+    description      = models.TextField()
+    solution         = models.TextField('Solution / Proposed solution', null=True, blank=True)
+    date_raised      = models.DateTimeField(auto_now_add=True)
+    date_last_saved  = models.DateTimeField(auto_now=True)
+    type             = models.CharField(max_length=10, choices=TICKET_TYPE_CHOICES, default='Bug')
+    status           = models.CharField(max_length=12, choices=TICKET_STATUS_CHOICES, default='Logged')
+    upvotes          = models.IntegerField(null=True, blank=True)
+    feature_cost     = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+              </code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="TicketComment">TicketComment</h5></figcaption>
+            <pre>
+              <code>
+    author       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    ticket       = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    date_comment = models.DateTimeField(auto_now_add=True)
+    comment      = models.TextField()
+              </code>
+            </pre>
+          </figure>
+          <figure>
+            <figcaption><h5 id="TicketUpvoter">TicketUpvoter</h5></figcaption>
+            <pre>
+              <code>
+    upvoter_user   = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    upvoter_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+              </code>
+            </pre>
+          </figure>
+        </div>
+      </div>
+      <hr class="doc-separator" id="item-3">
+      <div class="doc-section">
+        <h3>Views</h3>
+        <p>All of the views are documented by comments in the code, which should suffice for a good level of  understanding of each view. Here is a brief overview of all views:</p>
+        <div class="shaded-row">
+          <h4 class="mt-0 sub-title">accounts</h4>
+          <h5>login, logout, register</h5>
+          <p>Email/password authentication for signing in and registration using Djangos built in authentication module: django.contrib.auth</p>
+          <h4 class="mt-5 sub-title">cart</h4>
+          <h5>view_cart, adjust_cart, adjust_upvote_cart</h5>
+          <p>Listing of session based cart contents. There are two cart lists - one for new features and another for feature upvotes.</p>
+          <h4 class="mt-5 sub-title">checkout</h4>
+          <h5>checkout</h5>
+          <p>This generates a transaction based on cart contents and makes use of the <a href="https://stripe.com/docs/development" target="_blank">Stripe API</a> to charge the users credit card. For testing purposes you can use card number 4242424242424242. Assuming a successful payment is fed back from Stripe: save any new features as a ticket in the backend, similarly, any feature upvots need to be registered against the relevant ticket.</p>
+        </div>
       </div>
     </div>
   </div>
