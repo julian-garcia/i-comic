@@ -283,14 +283,15 @@ a.brand-button-content {
 
   #doc-toc {
     position: fixed;
-    top: 60px;
-    overflow-y: scroll;
-    max-height: calc(100vh - 1rem);
+    top: 5rem;
   }
 
   .doc-section {
-    min-height: 90vh;
+    min-height: 60vh;
     margin-bottom: 3rem;
+    h2,h3,h4,h5{
+      margin-top: 2rem;
+    }
   }
 
   .doc-content-item.active {

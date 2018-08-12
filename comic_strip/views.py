@@ -51,12 +51,16 @@ def comic_strip_frame_add(request, id):
         frame_form = ComicStripFrameAddForm(request.POST or None, request.FILES or None)
 
         if frame_form.is_valid():
-            frame = frame_form.save(commit=False)
-            frame.sequence = len(ComicStripFrame.objects.all().filter(comic_strip=comic_strip)) + 1
-            frame.comic_strip = comic_strip
-            frame.move = 0
-            frame.save()
-            return redirect(reverse('comic_strip', args=[comic_strip.id]))
+            if comic_strip.author == request.user:
+                frame = frame_form.save(commit=False)
+                frame.sequence = len(ComicStripFrame.objects.all().filter(comic_strip=comic_strip)) + 1
+                frame.comic_strip = comic_strip
+                frame.move = 0
+                frame.save()
+                return redirect(reverse('comic_strip', args=[comic_strip.id]))
+            else:
+                messages.error(request, 'You must be the owner of this comic strip to add frames')
+                return redirect(reverse('comic_strip', args=[comic_strip.id]))
         else:
             messages.error(request, 'Form filled in incorrectly')
             return redirect(reverse('comic_strip', args=[comic_strip.id]))

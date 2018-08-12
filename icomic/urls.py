@@ -4,7 +4,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 """
 from django.contrib import admin
 from django.urls import path, include
-from comic_strip.views import comic_strip_listing, comic_strip
+from comic_strip.views import comic_strip_listing
 from comic_strip import urls as urls_comic_strip
 from tickets import urls as urls_tickets
 from accounts import urls as urls_accounts

@@ -2,62 +2,127 @@
 {% load staticfiles %}
 {% block page_title %}i-Comic Forum - Developer Documentation{% endblock %}
 {% block content %}
-<h1>Developer Documentation</h1>
+<h1 id="item-0">Developer Documentation</h1>
 <div id="doc-content" class="row documentation">
   <div class="col-12 col-md-3 d-none d-md-block">
     <nav id="doc-toc" class="navbar navbar-light bg-light">
       <nav class="nav nav-pills flex-column">
         <a class="nav-link active doc-content-item" href="#item-0">About</a>
-        <a class="nav-link active doc-content-item" href="#item-1">Apps</a>
-        <nav class="nav nav-pills flex-column">
-          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-1-1">comic_strip</a>
-          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-1-2">tickets</a>
-        </nav>
+        <a class="nav-link doc-content-item" href="#item-1">Apps</a>
         <a class="nav-link doc-content-item" href="#item-2">Models</a>
-        <nav class="nav nav-pills flex-column">
-          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-2-1">Ticket</a>
-          <a class="nav-link ml-3 my-1 doc-content-item" href="#item-2-3">TicketComment</a>
-        </nav>
         <a class="nav-link doc-content-item" href="#item-3">Views</a>
         <a class="nav-link doc-content-item" href="#item-4">Templates</a>
       </nav>
     </nav>
   </div>
   <div class="col-12 col-md-9">
-    <div data-spy="scroll" data-target="#doc-toc" data-offset="-30">
+    <div data-spy="scroll" data-target="#doc-toc" data-offset="0">
       <div class="doc-section">
-        <h4 id="item-0" class="mb-5">This site was built using the Django framework (v2.0.7). Each section has been implemented within separate apps, each detailed in this documentation. The code is <a href="#">available on github</a>.</h4>
+        <h4 class="mb-5 mt-0">This site was built using the Django web framework (v2.0.7). Each section has been implemented within separate apps, each detailed in this documentation. The code is <a href="https://github.com/julian-garcia/i-comic" target="_blank">available on github</a>. If you are unfamiliar with Django, you can find out more on the official doc site: <a href="https://docs.djangoproject.com" target="_blank">docs.djangoproject.com</a></h4>
       </div>
       <div class="doc-section">
-        <h4 id="item-1">Apps</h4>
+        <h3 id="item-1">Apps</h3>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h3>accounts</h3>
-            <span>(User account registration, sign in/out and profile)</span></li>
-          <li class="list-group-item"><h3>comic_strip</h3>
-            <span>(Build Customised comic strips)</span></li>
-          <li class="list-group-item"><h3>tickets</h3>
-            <span>(Raise bugs/features with upvotes/comments)</span></li>
-          <li class="list-group-item"><h3>forum</h3>
-            <span>(Define and comment on topics for discussion)</span></li>
-          <li class="list-group-item"><h3>productivity</h3>
-            <span>(Graphs summarising tickets raised over time)</span></li>
-          <li class="list-group-item"><h3>cart</h3>
-            <span>(New features and feature upvote purchases)</span></li>
-          <li class="list-group-item"><h3>checkout</h3>
-            <span>(Process payments using Stripe)</span></li>
+          <li class="list-group-item"><span>accounts (User account registration, sign in/out and profile)</span></li>
+          <li class="list-group-item"><span>cart (New features and feature upvote purchases)</span></li>
+          <li class="list-group-item"><span>checkout (Process payments using Stripe)</span></li>
+          <li class="list-group-item"><span>comic_strip (Build Customised comic strips)</span></li>
+          <li class="list-group-item"><span>forum (Define and comment on topics for discussion)</span></li>
+          <li class="list-group-item"><span>productivity (Graphs summarising tickets raised over time)</span></li>
+          <li class="list-group-item"><span>tickets (Raise bugs/features with upvotes/comments)</span></li>
+        </ul>
+        <h4 id="item-1-1">accounts</h4>
+        <p>User sign in/out and registration and profile display. The login_required decorator is used across several apps to redirect signed out users to the login page with a subsequent redirection back to the page where the access attempt took place. This is based on a modified user model that uses email address + password authentication instead of user id and password.</p>
+        <h5>Models: <a href="#">MyUserManager</a> and <a href="#">User</a></h5>
+        <h5>Urls:</h5>
+        <ul class="list-group">
+          <li class="list-group-item">"login" - email address and password sign in</li>
+          <li class="list-group-item">"logout"</li>
+          <li class="list-group-item">"register" - full name, email address and new password</li>
+        </ul>
+        <h4 id="item-1-4">comic_strip</h4>
+        <p>Signed in users can add a new comic strip and add new frames to their own comic strips. Guests can view the overall comic strip listing and view individual comic strips.</p>
+        <h5>Models: <a href="#item-2-1">ComicStrip</a> and <a href="#item-2-2">ComicStripFrame</a></h5>
+        <h5>Urls:</h5>
+        <ul class="list-group">
+          <li class="list-group-item">"/" - home page - view a paginated listing of all comic strips</li>
+          <li class="list-group-item">"add" - add a comic strip</li>
+          <li class="list-group-item">"view/<comic strip id>" - view a comic strip</li>
+          <li class="list-group-item">"add-frame/<comic strip id>" - add a comic strip frame</li>
+        </ul>
+        <h4 id="item-1-7">tickets</h4>
+        <p>Bugs can be raised by signed in users. Similarly, new features can be requested - these need to be paid for so this app ties in with the cart and checkout apps. Users marked as staff can edit tickets to update their status and enter the implemented/proposed solution or next steps.</p>
+        <h5>Models: <a href="#">Ticket</a>, <a href="#">TicketUpvoter</a> and <a href="#">TicketComment</a></h5>
+        <h5>Urls:</h5>
+        <ul class="list-group doc-section">
+          <li class="list-group-item">"tickets" - paginated listing of all bugs and features</li>
+          <li class="list-group-item">"add" - add a comic strip</li>
+          <li class="list-group-item">"view/<comic strip id>" - view a comic strip</li>
+          <li class="list-group-item">"add-frame/<comic strip id>" - add a comic strip frame</li>
         </ul>
       </div>
       <div class="doc-section">
-        <h5 id="item-1-1">comic_strip</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
-      </div>
-      <div class="doc-section">
-        <h5 id="item-1-2">tickets</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
-      </div>
-      <div class="doc-section">
-        <h4 id="item-2">Models</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, justo eget dui ullamcorper phasellus rutrum, vestibulum varius praesent sociis venenatis mattis. Dui est sollicitudin platea per cursus dictum proin, at convallis imperdiet fames porttitor lacus a, praesent turpis integer purus mollis tellus. Ligula purus egestas class luctus netus natoque nam, quam pulvinar tristique suspendisse cum suscipit sodales, ac turpis vulputate fringilla a lobortis.</p>
+        <h3 id="item-2">Models</h3>
+        <p>"ComicStrip" handles user entry of an overall comic strip title and description entry. It joins to ComicStripFrame whereby multiple frames can be added, each with its own image and narrative.</p>
+        <figure>
+          <figcaption><h5 id="item-2-1">ComicStrip</h5></figcaption>
+          <pre>
+            <code>
+  title       = models.CharField(max_length=100, blank=False)
+  description = models.TextField()
+  author      = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='contacts', on_delete=models.CASCADE)</code>
+          </pre>
+        </figure>
+        <figure>
+          <figcaption><h5 id="item-2-2">ComicStripFrame</h5></figcaption>
+          <pre>
+            <code>
+  comic_strip = models.ForeignKey(ComicStrip, on_delete=models.CASCADE)
+  narrative   = models.TextField(max_length=300)
+  image       = models.ImageField(upload_to='images')
+  sequence    = models.IntegerField(null=False, blank=False)
+  move        = models.IntegerField(null=True, blank=True)
+            </code>
+          </pre>
+        </figure>
+        <figure>
+          <figcaption><h5 id="item-2-9">Ticket</h5></figcaption>
+          <pre>
+            <code>
+  requester        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  title            = models.CharField(max_length=50)
+  description      = models.TextField()
+  solution         = models.TextField('Solution / Proposed solution', null=True, blank=True)
+  date_raised      = models.DateTimeField(auto_now_add=True)
+  date_last_saved  = models.DateTimeField(auto_now=True)
+  type             = models.CharField(max_length=10, choices=TICKET_TYPE_CHOICES, default='Bug')
+  status           = models.CharField(max_length=12, choices=TICKET_STATUS_CHOICES, default='Logged')
+  upvotes          = models.IntegerField(null=True, blank=True)
+  feature_cost     = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+            </code>
+          </pre>
+        </figure>
+        <figure>
+          <figcaption><h5 id="item-2-10">TicketComment</h5></figcaption>
+          <pre>
+            <code>
+  author       = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  ticket       = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+  date_comment = models.DateTimeField(auto_now_add=True)
+  comment      = models.TextField()
+            </code>
+          </pre>
+        </figure>
+        <figure>
+          <figcaption><h5 id="item-2-11">TicketUpvoter</h5></figcaption>
+          <pre>
+            <code>
+  upvoter_user   = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  upvoter_ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+            </code>
+          </pre>
+        </figure>
       </div>
     </div>
   </div>
