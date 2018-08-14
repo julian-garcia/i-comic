@@ -11,6 +11,10 @@ stripe.api_key = settings.STRIPE_SECRET
 
 @login_required
 def checkout(request):
+    '''
+    Combined payment form and order form to register new features and feature upvotes, both
+    of which must be paid for by the end user.
+    '''
     cart_upvotes = request.session.get('cart_upvotes', [])
     cart = request.session.get('cart', [])
     total = sum(float(i['cost']) for i in cart_upvotes) + sum(float(i['feature_cost']) for i in cart)
@@ -19,6 +23,8 @@ def checkout(request):
         payment_form = PaymentForm(request.POST)
         order_form = OrderForm(request.POST)
         if payment_form.is_valid() and order_form.is_valid():
+            # Process the payment using the Stripe API, feeding back any error messages
+            # to this site if unsuccessful
             try:
                 charge_customer = stripe.Charge.create(
                                      amount = int(total*100),
@@ -28,7 +34,8 @@ def checkout(request):
                                   )
             except stripe.error.CardError:
                 messages.error(request, 'Your card was declined')
-
+            # Only if the Stripe payment is successful, save the order, features
+            # and feature upvotes in the backend database
             if charge_customer.paid:
                 order = order_form.save(commit=False)
                 order.save()

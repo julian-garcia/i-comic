@@ -6,6 +6,9 @@ from .forms import ForumAddTopicForm, ForumAddCommentForm, ForumAddReplyForm
 
 
 def forum(request):
+    '''
+    A simple paginated list of all forum topics
+    '''
     topics = ForumTopic.objects.all()
 
     paginator = Paginator(topics, 5)
@@ -16,6 +19,9 @@ def forum(request):
 
 @login_required
 def add_topic(request):
+    '''
+    Any registered and logged in user can add a new forum topic for discussion.
+    '''
     if request.method == 'POST':
         topic_form = ForumAddTopicForm(request.POST)
         if topic_form.is_valid():
@@ -27,8 +33,12 @@ def add_topic(request):
     return render(request, 'add_topic.html', {'topic_form': topic_form})
 
 def view_topic(request, id):
+    '''
+    Paginated listing of all comments and comment replies within a specific forum topic
+    '''
     topic = ForumTopic.objects.get(pk=id)
     comments = ForumComment.objects.filter(forum_topic=topic).order_by('-date_created')
+    # Retrieve the list of comment ids so that we can extract the relevant comment replies
     ids = [c.id for c in comments]
     replies = ForumCommentReply.objects.filter(forum_comment__in=ids).order_by('date_created')
 
@@ -42,6 +52,9 @@ def view_topic(request, id):
 
 @login_required
 def add_comment(request, id):
+    '''
+    Allow any logged in user to add a comment within a forum topic
+    '''
     topic = ForumTopic.objects.get(pk=id)
 
     if request.method == 'POST':
@@ -59,6 +72,9 @@ def add_comment(request, id):
 
 @login_required
 def add_reply(request, id):
+    '''
+    All comments can have an unlimited number of replies posted
+    '''
     comment = ForumComment.objects.get(pk=id)
     topic = ForumTopic.objects.get(pk=comment.forum_topic.id)
 

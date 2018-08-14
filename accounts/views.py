@@ -5,6 +5,10 @@ from accounts.models import User
 from django.contrib import auth, messages
 
 def login(request):
+    '''
+    Apply the email based user authentication set up in accounts.models
+    to log the user in
+    '''
     if request.user.is_authenticated:
         return redirect(reverse('index'))
 
@@ -16,7 +20,13 @@ def login(request):
         if user:
             auth.login(user=user,request=request)
             messages.success(request, 'You are now logged in')
-            return redirect(nextpage)
+            # If the log in page was accessed while attempting to access a page requiring login,
+            # redirect the user back to that page after logging on. Otherwise simply redirect to
+            # the home page
+            if nextpage == '':
+                return redirect(reverse('index'))
+            else:
+                return redirect(nextpage)
         else:
             login_form.add_error(None, "User name or password incorrect")
     else:
@@ -25,6 +35,9 @@ def login(request):
     return render(request, 'login.html', {'login_form': login_form})
 
 def registration(request):
+    '''
+    Register a new user based on full name, email address and password
+    '''
     if request.user.is_authenticated:
         return redirect(reverse('index'))
 
@@ -47,6 +60,7 @@ def registration(request):
 
 @login_required
 def logout(request):
+    ''' Log the user out if logged in '''
     auth.logout(request)
     messages.success(request, 'You have been logged out')
     return redirect(reverse('index'))

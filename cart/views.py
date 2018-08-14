@@ -3,6 +3,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def view_cart(request):
+    '''
+    Display the cart contents and calculate the overall total to
+    facilitate checkout
+    '''
     if 'cart' in request.session:
         cart = request.session['cart']
     else:
@@ -18,6 +22,10 @@ def view_cart(request):
 
 @login_required
 def adjust_cart(request, title):
+    '''
+    Retrieve each proposed feature in the cart and amend its cost if the feature title matches
+    the title against which the amount was changed
+    '''
     new_cost = float(request.POST.get('cost'))
     cart = request.session.get('cart', [])
 
@@ -30,6 +38,10 @@ def adjust_cart(request, title):
 
 @login_required
 def adjust_upvote_cart(request, id):
+    '''
+    Retrieve each upvoted feature in the cart and amend its cost if the feature id matches
+    the id against which the amount was changed
+    '''
     new_cost = float(request.POST.get('cost'))
     cart_upvotes = request.session.get('cart_upvotes', [])
 

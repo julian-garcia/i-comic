@@ -8,6 +8,12 @@ from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
 from .models import Ticket, TicketComment, TicketUpvoter
 
 def ticket_listing(request):
+    '''
+    Paginated listing of all tickets raised by users. Tickets are either
+    feature requests or bug reports
+    '''
+    # There are two tabs - one for tickets being worked on and another for completed tickets.
+    # Splitting the data that way simplifies the logic required within the template.
     tickets = Ticket.objects.all().filter(~Q(status='Completed') & ~Q(status='Cancelled')).order_by('-upvotes', '-date_raised', 'title')
     ctickets = Ticket.objects.all().filter(Q(status='Completed') | Q(status='Cancelled')).order_by('-upvotes', '-date_raised', 'title')
 
@@ -24,6 +30,10 @@ def ticket_listing(request):
                    'completed_ticket_list': completed_ticket_list})
 
 def ticket_view(request, id):
+    '''
+    Single tiket view - from here the user can: view ticket details (title, description,
+    developer response), they can also make comments and upvote a ticket to raise its priority
+    '''
     ticket = Ticket.objects.get(pk=id)
     comments = TicketComment.objects.all().filter(ticket=ticket).order_by('-date_comment')
 
@@ -36,6 +46,12 @@ def ticket_view(request, id):
 
 @login_required
 def ticket_add(request):
+    '''
+    There are two branches for adding a ticket:
+    Bug - this is free so the ticket is simply saved in the backend
+    Feature - this paid for so the ticket is first added to a shopping cart
+              and will only be committed upon payment in the checkout app
+    '''
     if request.method == 'POST':
         ticket_form = TicketAddForm(request.POST)
 
@@ -63,6 +79,10 @@ def ticket_add(request):
 
 @login_required
 def ticket_edit(request, id):
+    '''
+    Ticket editing is meant for developers only so they are able to update the status
+    and enter some text to advise users of the current state of play in more detail
+    '''
     ticket = Ticket.objects.get(pk=id)
 
     if request.user.is_staff:
@@ -78,9 +98,18 @@ def ticket_edit(request, id):
 
 @login_required
 def ticket_upvote(request, id):
+    '''
+    Upvoting allows users to push bugs or features to the top of the list so that developers
+    address them sooner. Bugs are upvoted for free so the increment is applied and committed.
+    Feature upvotes are paid for so they need to be directed to a session based shopping cart
+    before flowing through to the backend upon payment - the checkout app handles this.
+    '''
     ticket = Ticket.objects.get(pk=id)
     upvotes = TicketUpvoter.objects.all().filter(upvoter_ticket=ticket,
                                                  upvoter_user=request.user)
+    # Each user upvote is saved in the database to ensure that we only register
+    # one upvote per user. Here we check that the user has not already upvoted this ticket.
+    # If they have, the upvote is skipped and a relevant message passed back to the user
     if not upvotes:
         if ticket.type == 'Bug':
             if ticket.upvotes is None:
@@ -92,6 +121,7 @@ def ticket_upvote(request, id):
         else:
             # Add upvoted feature to the upvote cart
             cart_upvotes = request.session.get('cart_upvotes', [])
+            # Check that an upvote has not alread been added to the cart to prevent multiple upvotes
             if not any(d['id'] == ticket.id for d in cart_upvotes):
                 cart_upvotes.append({'id': ticket.id, 'title': ticket.title, 'cost': 1})
                 request.session['cart_upvotes'] = cart_upvotes
@@ -107,6 +137,9 @@ def ticket_upvote(request, id):
 
 @login_required
 def comment_add(request, id):
+    '''
+    Tickets can have an unlimited number of comments to facilitate user discussion.
+    '''
     ticket = Ticket.objects.get(pk=id)
 
     if request.method == 'POST':

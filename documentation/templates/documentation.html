@@ -269,6 +269,15 @@
           <h4 class="mt-5 sub-title">checkout</h4>
           <h5>checkout</h5>
           <p>This generates a transaction based on cart contents and makes use of the <a href="https://stripe.com/docs/development" target="_blank">Stripe API</a> to charge the users credit card. For testing purposes you can use card number 4242424242424242. Assuming a successful payment is fed back from Stripe: save any new features as a ticket in the backend, similarly, any feature upvots need to be registered against the relevant ticket.</p>
+          <h4 class="mt-5 sub-title">comic_strip</h4>
+          <h5>comic_strip_listing, comic_strip, comic_strip_add, comic_strip_frame_add</h5>
+          <p>These views cover the end user product to generate custom comic strips: paginated listing of comic strips, ordered by title, view all frames within each comic strip (also paginated in the order added). Logged in users can also add comic strips and individual frames within a comic book. The user must be the owner of the strip to add new frames.</p>
+          <h4 class="mt-5 sub-title">productivity</h4>
+          <h5>productivity</h5>
+          <p>This view builds five cuts of the backend ticket data which is then used to portray work rate using a series of line charts and top N lists. The line charts show daily, weekly and monthly figures of tickets raised over time. These charts are built using JavaScript libraries chartist.js and moment.js</p>
+          <h4 class="mt-5 sub-title">tickets</h4>
+          <h5>ticket_listing, ticket_view, ticket_add, ticket_edit, ticket_upvote, comment_add</h5>
+          <p>For the ticket listing, bugs/features are order by descending upvotes so that the most popular tickets appear at the top. The ticket_add view performs differently for bugs and features. As bugs are free to add, they are simply added to the tickets and saved in the backend database. Features however must be paid for before they are considered. These are added to a shopping cart. Only upon checkout will a feature be committed to the backend and listed on the site.</p>
         </div>
       </div>
     </div>
