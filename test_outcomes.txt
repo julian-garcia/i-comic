@@ -1,0 +1,215 @@
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+TestAccountsForms: UserLoginForm - test_missing_email 
+                Expected: Email input element no value, Actual: <input type="email" name="email" maxlength="254" required id="id_email" /> 
+                Expected: Password input element, Actual: <input type="password" name="password" required id="id_password" />
+TestAccountsForms: UserLoginForm - test_user_login 
+                Expected: Email input element, Actual: <input type="email" name="email" value="test@test.com" maxlength="254" required id="id_email" /> 
+                Expected: Password input element, Actual: <input type="password" name="password" required id="id_password" />
+TestAccountsForms: UserRegistrationForm - test_user_registration 
+                Expected: Email input element, Actual: <input type="email" name="email" value="test@test.com" maxlength="254" autofocus required id="id_email" /> 
+                Expected: Forename input element, Actual: <input type="text" name="first_name" value="Test" required id="id_first_name" /> 
+                Expected: Surname input element, Actual: <input type="text" name="last_name" value="Case" required id="id_last_name" /> 
+                Expected: Password1 input element, Actual: <input type="password" name="password1" required id="id_password1" /> 
+                Expected: Password2 input element, Actual: <input type="password" name="password2" required id="id_password2" />
+TestAccountsModels: User - test_new_user 
+                Expected: test@test.com, Actual: test@test.com 
+                Expected: Test, Actual: Test 
+                Expected: Case, Actual: Case
+TestAccountsViews: login - test_login_page 
+                Expected: 200, Actual: 200 
+                Expected: login.html, Actual: <HttpResponse status_code=200, "text/html; charset=utf-8">
+TestAccountsViews: register - test_register_page 
+                Expected: 200, Actual: 200 
+                Expected: register.html, Actual: <HttpResponse status_code=200, "text/html; charset=utf-8">
+TestCartViews: view_cart - test_cart_page 
+                Expected: 302, Actual: 302 
+                Expected: login url redirect, Actual: <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/account/login?next=/cart/">
+TestCartViews: view_cart - test_cart_total 
+                Expected: 3.3, Actual: b'3.30'
+TestCheckoutForms: OrderForm - test_order_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_full_name">Full name:</label></th><td><input type="text" name="full_name" value="Test name" maxlength="50" required id="id_full_name" /></td></tr>
+<tr><th><label for="id_phone_number">Phone number:</label></th><td><input type="text" name="phone_number" value="0" maxlength="20" required id="id_phone_number" /></td></tr>
+<tr><th><label for="id_street_address1">Street address1:</label></th><td><input type="text" name="street_address1" value="abc" maxlength="40" required id="id_street_address1" /></td></tr>
+<tr><th><label for="id_street_address2">Street address2:</label></th><td><input type="text" name="street_address2" value="def" maxlength="40" required id="id_street_address2" /></td></tr>
+<tr><th><label for="id_postcode">Postcode:</label></th><td><input type="text" name="postcode" value="ghi123" maxlength="20" id="id_postcode" /></td></tr>
+<tr><th><label for="id_town_or_city">Town or city:</label></th><td><input type="text" name="town_or_city" value="town" maxlength="40" required id="id_town_or_city" /></td></tr>
+<tr><th><label for="id_county">County:</label></th><td><input type="text" name="county" value="county" maxlength="40" required id="id_county" /></td></tr>
+<tr><th><label for="id_country">Country:</label></th><td><input type="text" name="country" value="uk" maxlength="40" required id="id_country" /></td></tr>
+TestCheckoutForms: PaymentForm - test_payment_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_credit_card_number">Credit card number:</label></th><td><input type="text" name="credit_card_number" value="1234" id="id_credit_card_number" /></td></tr>
+<tr><th><label for="id_cvv">Security code (CVV):</label></th><td><input type="text" name="cvv" value="110" id="id_cvv" /></td></tr>
+<tr><th><label for="id_expiry_month">Month:</label></th><td><select name="expiry_month" id="id_expiry_month">
+  <option value="1">1</option>
+
+  <option value="2">2</option>
+
+  <option value="3">3</option>
+
+  <option value="4">4</option>
+
+  <option value="5">5</option>
+
+  <option value="6">6</option>
+
+  <option value="7">7</option>
+
+  <option value="8">8</option>
+
+  <option value="9">9</option>
+
+  <option value="10" selected>10</option>
+
+  <option value="11">11</option>
+
+  <option value="12">12</option>
+
+</select></td></tr>
+<tr><th><label for="id_expiry_year">Year:</label></th><td><select name="expiry_year" id="id_expiry_year">
+  <option value="2018" selected>2018</option>
+
+  <option value="2019">2019</option>
+
+  <option value="2020">2020</option>
+
+  <option value="2021">2021</option>
+
+  <option value="2022">2022</option>
+
+  <option value="2023">2023</option>
+
+  <option value="2024">2024</option>
+
+  <option value="2025">2025</option>
+
+  <option value="2026">2026</option>
+
+  <option value="2027">2027</option>
+
+  <option value="2028">2028</option>
+
+  <option value="2029">2029</option>
+
+  <option value="2030">2030</option>
+
+  <option value="2031">2031</option>
+
+  <option value="2032">2032</option>
+
+  <option value="2033">2033</option>
+
+</select><input type="hidden" name="stripe_id" value="0" id="id_stripe_id" /></td></tr>
+TestCheckoutModels: Order - test_order 
+                Expected: Test, Actual: Test 
+                Expected: 012345, Actual: 012345 
+                Expected: gb, Actual: gb 
+                Expected: ab123, Actual: ab123
+TestCheckoutModels: OrderTransaction - test_order_txn 
+                Expected: Test, Actual: Test 
+                Expected: 012345, Actual: 012345 
+                Expected: test@test.com, Actual: test@test.com 
+                Expected: Title, Actual: Title 
+                Expected: 2.2, Actual: 2.2
+TestCheckoutView: checkout - test_checkout_calc 
+                Expected: Response code: 200, Actual: 200 
+                Expected: Total: 8.05, Actual: b'8.05'
+TestComicStripForms: ComicStripForm - test_comic_strip_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Test name" maxlength="100" required id="id_title" /></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><textarea name="description" cols="40" rows="10" required id="id_description">
+0</textarea></td></tr>
+TestComicStripForms: ComicStripFrameAddForm - test_comic_strip_frame_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_narrative">Narrative:</label></th><td><textarea name="narrative" cols="40" rows="10" maxlength="300" required id="id_narrative">
+1234</textarea></td></tr>
+<tr><th><label for="id_image">Image:</label></th><td><input type="file" name="image" required id="id_image" /></td></tr>
+TestComicStripModels: ComicStrip - test_comic_strip 
+                Expected: Test, Actual: Test 
+                Expected: Desc, Actual: Desc 
+                Expected: test@test.com, Actual: test@test.com
+TestComicStripModels: ComicStripFrame - test_comic_strip_frame 
+                Expected: Test, Actual: Test 
+                Expected: blah, Actual: blah 
+                Expected: 1, Actual: 1
+TestComicStripViews: comic_strip - test_comic_strip 
+                Expected: 200, Actual: 200 
+                Expected: /comic-strip/view/1, Actual: /comic-strip/view/1
+TestComicStripViews: comic_strip_add - test_comic_strip_add 
+                Expected: 200, Actual: 200 
+                Expected: /comic-strip/add, Actual: /comic-strip/add
+TestComicStripViews: comic_strip_frame_add - test_comic_strip_frame_add 
+                Expected: 200, Actual: 200 
+                Expected: /comic-strip/add-frame/1, Actual: /comic-strip/add-frame/1
+TestComicStripViews: comic_strip_listing - test_comic_strip_listing 
+                Expected: 200, Actual: 200 
+                Expected: /, Actual: /
+TestForumForms: ForumAddTopicForm - test_forum_add_topic_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_topic_title">Topic title:</label></th><td><input type="text" name="topic_title" value="Test name" maxlength="150" required id="id_topic_title" /></td></tr>
+TestForumForms: ForumAddCommentForm - test_forum_comment_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_comment">Comment:</label></th><td><textarea name="comment" cols="40" rows="10" required id="id_comment">
+my comment</textarea></td></tr>
+TestForumForms: ForumAddReplyForm - test_forum_reply_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_comment">Comment:</label></th><td><textarea name="comment" cols="40" rows="10" required id="id_comment">
+my comment</textarea></td></tr>
+TestForumModels: ForumComment - test_forum_comment 
+                Expected: Test, Actual: Test 
+                Expected: my comment, Actual: my comment 
+                Expected: test@test.com, Actual: test@test.com 
+                Expected: my reply, Actual: my reply
+TestForumModels: ForumTopic - test_forum_topic 
+                Expected: Test, Actual: Test 
+                Expected: Now, Actual: 2018-08-20 23:12:20.014034+00:00
+TestForumViews: add_comment - test_add_comment 
+                Expected: 200, Actual: 200 
+                Expected: /forum/comment/1, Actual: /forum/comment/1
+TestForumViews: add_reply - test_add_reply 
+                Expected: 200, Actual: 200 
+                Expected: /forum/reply/1, Actual: /forum/reply/1
+TestForumViews: forum - test_forum 
+                Expected: 200, Actual: 200 
+                Expected: forum, Actual: /forum/
+TestForumViews: add_topic - test_forum_add_topic 
+                Expected: 200, Actual: 200 
+                Expected: /forum/add-topic, Actual: /forum/add-topic
+TestForumViews: view_topic - test_view_topic 
+                Expected: 200, Actual: 200 
+                Expected: /forum/view/1, Actual: /forum/view/1
+TestTicketForms: TicketAddForm - test_ticket_add_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Test title" maxlength="50" required id="id_title" /></td></tr>
+<tr><th><label for="id_type">Type:</label></th><td><select name="type" id="id_type">
+  <option value="Bug" selected>Bug</option>
+
+  <option value="Feature">Feature</option>
+
+</select></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><textarea name="description" cols="40" rows="10" required id="id_description">
+Test description</textarea></td></tr>
+<tr><th><label for="id_feature_cost">Feature cost &lt;i class=&quot;fas fa-pound-sign&quot;&gt;&lt;/i&gt;:</label></th><td><input type="number" name="feature_cost" value="1.5" min="1.0" step="any" required id="id_feature_cost" /></td></tr>
+TestTicketForms: TicketCommentAddForm - test_ticket_comment_form 
+                Expected: All form inputs with values populated, Actual: <tr><th><label for="id_comment">Comment:</label></th><td><textarea name="comment" cols="40" rows="10" required id="id_comment">
+my comment</textarea></td></tr>
+TestTicketModels: Ticket - test_ticket 
+                Expected: Test ticket, Actual: Test ticket 
+                Expected: Ticket description, Actual: Ticket description 
+                Expected: Bug, Actual: Bug 
+                Expected: Logged, Actual: Logged
+TestTicketModels: TicketComment - test_ticket_comment 
+                Expected: Test comment, Actual: Test comment 
+                Expected: test@test.com, Actual: test@test.com
+TestTicketViews: comment_add - test_comment_add 
+                Expected: 200, Actual: 200 
+                Expected: tickets/comment/1, Actual: /tickets/comment/1
+TestTicketViews: ticket_add - test_ticket_add 
+                Expected: 200, Actual: 200 
+                Expected: tickets/add, Actual: /tickets/add
+TestTicketViews: ticket_edit - test_ticket_edit 
+                Expected: 200, Actual: 200 
+                Expected: tickets/edit/1, Actual: /tickets/edit/1
+TestTicketViews: ticket_listing - test_ticket_listing 
+                Expected: 200, Actual: 200 
+                Expected: tickets, Actual: /tickets/
+TestTicketViews: ticket_upvote - test_ticket_upvote 
+                Expected: 302, Actual: 302 
+                Expected: tickets/upvote/1, Actual: /tickets/upvote/1
+TestTicketViews: ticket_view - test_ticket_view 
+                Expected: 200, Actual: 200 
+                Expected: tickets/view/1, Actual: /tickets/view/1
+Destroying test database for alias 'default'...

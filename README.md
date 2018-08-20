@@ -34,10 +34,13 @@ Mockup constructed using [WireframePro](https://mockflow.com/apps/wireframepro/)
 - [AWS S3](https://aws.amazon.com/s3/) for media hosting
 
 ## Contribute
-1. Set up a virtual environment using pip:
-2. Clone github repository:
+1. Ensure you have Python 3.7 installed
+2. Set up a virtual environment using pip: `python3 -m venv .`
+3. Clone github repository: `git clone https://github.com/julian-garcia/i-comic.git`
+4. Run `python manage.py runserver` and the project will run on [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ## Testing
+Forty tests have been implemented using the Django testing suite to test the various models, views and forms across all of the apps within this project. Test outcomes are available in [test_outcomes.txt](test_outcomes.txt). Travis CI is being used for continuous integration testing.
 
 ## Credits
 ### Media

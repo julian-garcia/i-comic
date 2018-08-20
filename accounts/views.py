@@ -23,7 +23,7 @@ def login(request):
             # If the log in page was accessed while attempting to access a page requiring login,
             # redirect the user back to that page after logging on. Otherwise simply redirect to
             # the home page
-            if nextpage == '':
+            if nextpage == '' or nextpage is None:
                 return redirect(reverse('index'))
             else:
                 return redirect(nextpage)
