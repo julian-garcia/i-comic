@@ -14,7 +14,7 @@ import os
 import dj_database_url
 
 if os.environ.get('LOCAL'):
-    if os.environ.get('LOCAL')==1:
+    if int(os.environ.get('LOCAL'))==1:
         import env
     development = True
 else:
