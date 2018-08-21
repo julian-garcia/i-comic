@@ -1,5 +1,7 @@
 # i-Comic
-Django based web app to enable registered users to define custom comic strips, request new features and report bugs. Also includes a user forum for general discussion, productivity charts to indicate developer work rates and finally  documentation for developers who wish to contribute.
+Django based web app to enable registered users to define custom comic strips, request new features and report bugs. Also includes a user forum for general discussion, productivity charts to indicate developer work rates and finally  documentation for developers who wish to contribute. This site has been deployed on Heroku: [i-comic.herokuapp.com](https://i-comic.herokuapp.com)
+
+[![Build Status](https://travis-ci.org/julian-garcia/i-comic.svg?branch=master)](https://travis-ci.org/julian-garcia/i-comic)
 
 ## Technical approach
 The app was developed using web framework **Django** alongside **Python**, using its Model-View-Template structure. Productivity charts are visualised using JavaScript libraries **Chartist.js** and **moment.js**. Dynamic front end elements were implemented using **jQuery**. For device responsiveness **Bootstrap** is employed.
