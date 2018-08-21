@@ -32,6 +32,7 @@ Mockup constructed using [WireframePro](https://mockflow.com/apps/wireframepro/)
 - [moment.js](https://momentjs.com)
 - [Stripe](https://js.stripe.com/v2/)
 - [AWS S3](https://aws.amazon.com/s3/) for media hosting
+- [Heroku](https://www.heroku.com) - deployed website
 
 ## Contribute
 1. Ensure you have Python 3.7 installed
