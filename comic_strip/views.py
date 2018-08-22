@@ -5,6 +5,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ComicStripForm, ComicStripFrameAddForm, ComicStripFrameEditForm
 from .models import ComicStrip, ComicStripFrame
 
+def index(request):
+    '''
+    Home page - product/process description
+    '''
+    return render(request, 'index.html')
+
 def comic_strip_listing(request):
     '''
     Paginated listing of all comic strips defined by registered users. The

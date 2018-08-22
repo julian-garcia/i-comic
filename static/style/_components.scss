@@ -209,6 +209,15 @@ a.brand-button-content {
   }
 }
 
+.icomic-feature {
+  transition: all .7s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    background-color: $dark-shade;
+    color: $light-shade;
+  }
+}
+
 #register-form ul {
   list-style-type: none;
 }

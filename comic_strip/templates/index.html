@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}i-Comic{% endblock %}
+{% block content %}
+<div class="row mb-4">
+  <div class="col-12 col-lg-3">
+    <h1>i-Comic</h1>
+  </div>
+  <div class="col-12 col-lg-9">
+    <h3>Build your own comic strip...</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-xl-9">
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal1">
+          <h1><i class="fas fa-th"></i></h1>
+          <h2>Define your comic strip</h2>
+        </div>
+        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-th"></i> Define your comic strip</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Simply enter the title of your comic strip along with a brief description of the story. With that in place, you can then go on to add an unlimited number of individual frames to the comic strip.</p>
+                <div class="text-center">
+                  <a href="{% url 'comic_strip_add' %}" class="btn brand-button">Add a comic strip</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal2">
+          <h1><i class="fas fa-pencil-alt"></i></h1>
+          <h2>Draw your own frames</h2>
+        </div>
+        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-pencil-alt"></i> Draw your own frames</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>After you've set up your comic strip you can add frames, each with their own image and text. Visit the listing and select your comic strip, press "add a frame" and simply browse for an image. Please note, you can only add frames to comic strips that you've created yourself.</p>
+                <div class="text-center">
+                  <a href="{% url 'listing' %}" class="btn brand-button">View comic strips</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal3">
+          <h1><i class="fas fa-pen-nib"></i></h1>
+          <h2>Write the narrative</h2>
+        </div>
+        <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-pen-nib"></i> Write the narrative</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>After you've set up your comic strip you can add frames, each with their own image and text. Visit the listing and select your comic strip, press "add a frame" and simply type in the narrative. Please note, you can only add frames to comic strips that you've created yourself.</p>
+                <div class="text-center">
+                  <a href="{% url 'listing' %}" class="btn brand-button">View comic strips</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal4">
+          <h1><i class="fab fa-readme"></i></h1>
+          <h2>Read other comic strips</h2>
+        </div>
+        <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fab fa-readme"></i> Read other comic strips</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>You can read comic strips that other people have created by visiting the listing page.</p>
+                <div class="text-center">
+                  <a href="{% url 'listing' %}" class="btn brand-button">View comic strips</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal5">
+          <h1><i class="fas fa-bug"></i></h1>
+          <h2>Report pesky bugs</h2>
+        </div>
+        <div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-bug"></i> Report pesky bugs</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Should you come across any bugs or errors, you can raise them. A developer will then address each bug. You can upvote bugs to raise their priority so that a developer starts working on it sooner. You can comment on any bug.</p>
+                <div class="text-center">
+                  <a href="{% url 'ticket_add' %}" class="btn brand-button">Report a Bug</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal6">
+          <h1><i class="fas fa-plus"></i></h1>
+          <h2>Request new features</h2>
+        </div>
+        <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-plus"></i> Request new features</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Thought of some new features? You can raise them. New features need to be paid for before a developer starts work. You can upvote features to raise their priority so that a developer starts working on it sooner. Again, upvotes for features need to be paid for. You can comment on any feature.</p>
+                <div class="text-center">
+                  <a href="{% url 'ticket_add' %}" class="btn brand-button">Request a Feature</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal7">
+          <h1><i class="fas fa-chart-line"></i></h1>
+          <h2>Monitor Productivity</h2>
+        </div>
+        <div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-chart-line"></i> Monitor Productivity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Charts detailing the number of features being worked on over time, on a daily, weekly and monthly basis. Also lists the top 5 features and bugs according to the number of upvotes.</p>
+                <div class="text-center">
+                  <a href="{% url 'productivity' %}" class="btn brand-button">Productivity Charts</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal8">
+          <h1><i class="fas fa-users"></i></h1>
+          <h2>Discuss comic strips</h2>
+        </div>
+        <div class="modal fade" id="modal8" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-users"></i> Discuss comic strips</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Discuss various comic based topics with other users. Please be nice.</p>
+                <div class="text-center">
+                  <a href="{% url 'forum' %}" class="btn brand-button">Forum</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal9">
+          <h1><i class="fas fa-code"></i></h1>
+          <h2>Developers: Contribute</h2>
+        </div>
+        <div class="modal fade" id="modal9" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-code"></i> Developers: Contribute</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Should any developers stumble upon the urge to contribute to this project, some documentation is available.</p>
+                <div class="text-center">
+                  <a href="{% url 'view_documentation' %}" class="btn brand-button">Documentation</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
