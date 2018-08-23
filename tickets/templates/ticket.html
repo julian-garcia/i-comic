@@ -2,16 +2,16 @@
 {% load staticfiles %}
 {% block page_title %}i-Comic - View Ticket{% endblock %}
 {% block content %}
-<div class="row">
-  <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
+<div class="row mx-1">
+  <div class="col-12 col-md-9 hand-drawn-border comic-strip-container">
     <h2 class="d-flex justify-content-between">
       {{ ticket.title }}
       <span class="badge badge-pill badge-dark ticket-status">{{ ticket.status }}</span>
     </h2>
   </div>
 </div>
-<div class="row mb-3">
-  <div class="col-12 col-sm-6 col-md-9 mb-3 ticket-body hand-drawn-border comic-strip-container ">
+<div class="row mb-3 mx-1">
+  <div class="col-12 col-md-9 mb-3 ticket-body hand-drawn-border comic-strip-container ">
     <h3>Ticket Type: {{ ticket.type }}</h3>
     <h5>Date Raised: {{ ticket.date_raised|date:'jS M Y' }}</h4>
     <h5>Date Modified: {{ ticket.date_last_saved|date:'jS M Y' }}</h4>
@@ -43,7 +43,7 @@
     </div>
     {% endif %}
   </div>
-  <div class="col-12 col-sm-6 col-md-3">
+  <div class="col-12 col-md-9 col-xl-3">
     {% if ticket_comments %}
       <h3>Comments...</h3>
       {% for comment in ticket_comments %}

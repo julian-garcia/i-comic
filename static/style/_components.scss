@@ -129,6 +129,9 @@ a.brand-button-content {
     margin: 2rem 1.1rem 0 0;
     padding: 0;
     text-align: right;
+    background-color: rgba($light-shade,.85);
+    border-radius: 20px;
+
     li {
       display: block;
     }
@@ -153,7 +156,7 @@ a.brand-button-content {
         opacity: 1;
       }
       .home-menu-text-hide {
-        opacity: 0;
+        opacity: .7;
       }
     }
     .home-menu-item-icon {
