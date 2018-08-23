@@ -17,7 +17,7 @@
 </div>
 <h2>{{ topic.topic_title }}</h2>
 {% for comment in topic_comments %}
-<div class="row forum-comment mt-4 mb-3">
+<div class="row forum-comment mt-4 mb-3 mx-1">
   <div class="col-12 col-md-9 p-3 hand-drawn-border {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
     <div class="row">
       <div class="col-12 col-md-6">

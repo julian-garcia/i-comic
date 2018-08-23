@@ -10,7 +10,7 @@
     <h5>Raise a Ticket <a href="{% url 'ticket_add' %}" class="ticket-list-link"><i class="fas fa-plus ticket-list-icon"></i></a></h5>
   </div>
 </div>
-<div class="row mb-5">
+<div class="row mb-5 mx-1">
   <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
@@ -25,7 +25,7 @@
         <ul class="list-group">
           {% for ticket in ticket_list %}
             <li class="list-group-item d-flex justify-content-between align-items-center row {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
-              <div class="col-12">
+              <div class="col-12 p-0">
                 <h2 class="d-flex justify-content-between">{{ ticket.title }}
                   <span>
                     <span class="badge badge-pill badge-dark ticket-status">{{ ticket.type }}</span>
@@ -34,7 +34,7 @@
                 </h2>
                 <p>{{ ticket.description|truncatewords:10 }}</p>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-6 p-0">
                 <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
               </div>
               <div class="col-12 col-md-6 text-right">
@@ -81,7 +81,7 @@
         <ul class="list-group">
           {% for ticket in completed_ticket_list %}
             <li class="list-group-item d-flex justify-content-between align-items-center row {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
-              <div class="col-12">
+              <div class="col-12 p-0">
                 <h2 class="d-flex justify-content-between">{{ ticket.title }}
                   <span>
                     <span class="badge badge-pill badge-dark ticket-status">{{ ticket.type }}</span>
@@ -90,7 +90,7 @@
                 </h2>
                 <p>{{ ticket.description|truncatewords:10 }}</p>
               </div>
-              <div class="col-12 col-md-6">
+              <div class="col-12 col-md-6 p-0">
                 <h3>{{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h3>
               </div>
               <div class="col-12 col-md-6 text-right">

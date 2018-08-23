@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block page_title %}i-Comic - View Comic Strip{% endblock %}
 {% block content %}
-<div class="row mb-3">
+<div class="row mb-3 mx-1">
   <div class="col-12 col-sm-9 hand-drawn-border comic-strip-container">
     <div class="row">
       <div class="col-12 col-lg-3">
@@ -38,7 +38,7 @@
   </div>
 </div>
 {% if comic_strip_frames %}
-<div class="row comic-strip-frames hand-drawn-border pb-2 mb-5">
+<div class="row comic-strip-frames hand-drawn-border pb-2 mb-5 mx-1">
   {% for frame in comic_strip_frames %}
     <div class="col-12 col-sm-6 col-md-4 single-frame">
       <img src="{{ frame.image.url }}">

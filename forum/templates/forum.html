@@ -11,7 +11,7 @@
   </div>
 </div>
 {% for topic in topic_list %}
-<div class="row mb-4">
+<div class="row mb-4 mx-1">
   <div class="col-12 col-sm-9 p-0 p-md-3 hand-drawn-border comic-strip-container forum-topic-row text-center">
     <a href="{% url 'view_topic' topic.id %}" class="feature-topic-link"><h2>{{ topic.topic_title }}</h2></a>
   </div>
