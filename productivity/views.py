@@ -33,9 +33,10 @@ def productivity(request):
     if os.environ.get('LOCAL'):
         ticket_counts = Ticket.objects.extra({'dt_raised' : "date(date_raised)"}).values('dt_raised','type').annotate(ticket_count=Count('id')).order_by('dt_raised')
     else:
+        # Production app uses Postgresql db so need to use to_char function to
+        # extract the date part of the date time stamp
         ticket_counts = Ticket.objects.extra({'dt_raised' : "to_char(date_raised,'yyyy-mm-dd')"}).values('dt_raised','type').annotate(ticket_count=Count('id')).order_by('dt_raised')
 
-    print(ticket_counts)
     # For the weekly/monthly chart, pick up the last 12/40 weeks worth of tickets based on the latest ticket raised
     weekly_min = Ticket.objects.aggregate(Max('date_raised'))['date_raised__max'] - timedelta(weeks=12)
     monthly_min = Ticket.objects.aggregate(Max('date_raised'))['date_raised__max'] - timedelta(weeks=40)
