@@ -21,7 +21,7 @@ def tickets_date_range(type, min_date, tickets):
                'ticket_count': item['ticket_count']}
                for item in tickets
                     if item['type']==type and
-                        datetime.datetime.strptime(item['dt_raised'],'%Y-%m-%d').date() >= min_date]
+                        datetime.datetime.strptime(str(item['dt_raised']),'%Y-%m-%d').date() >= min_date]
 
 def productivity(request):
     '''
