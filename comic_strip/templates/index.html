@@ -2,25 +2,6 @@
 {% load staticfiles %}
 {% block page_title %}i-Comic{% endblock %}
 {% block content %}
-<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><i class="fas fa-th"></i> Define your comic strip</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Simply enter the title of your comic strip along with a brief description of the story. With that in place, you can then go on to add an unlimited number of individual frames to the comic strip.</p>
-        <div class="text-center">
-          <a href="{% url 'comic_strip_add' %}" class="btn brand-button">Add a comic strip</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="row mb-4">
   <div class="col-12 col-lg-3">
     <h1>i-Comic</h1>
@@ -33,16 +14,34 @@
   <div class="col-12 col-xl-9">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal1">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal1">
           <h1><i class="fas fa-th"></i></h1>
           <h2>Define your comic strip</h2>
+        </button>
+        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-th"></i> Define your comic strip</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Simply enter the title of your comic strip along with a brief description of the story. With that in place, you can then go on to add an unlimited number of individual frames to the comic strip.</p>
+                <div class="text-center">
+                  <a href="{% url 'comic_strip_add' %}" class="btn brand-button">Add a comic strip</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal2">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal2">
           <h1><i class="fas fa-pencil-alt"></i></h1>
           <h2>Draw your own frames</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -63,10 +62,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal3">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal3">
           <h1><i class="fas fa-pen-nib"></i></h1>
           <h2>Write the narrative</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -87,10 +86,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal4">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal4">
           <h1><i class="fab fa-readme"></i></h1>
           <h2>Read other comic strips</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -111,10 +110,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal5">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal5">
           <h1><i class="fas fa-bug"></i></h1>
           <h2>Report pesky bugs</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -135,10 +134,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal6">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal6">
           <h1><i class="fas fa-plus"></i></h1>
           <h2>Request new features</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal6" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -159,10 +158,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal7">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal7">
           <h1><i class="fas fa-chart-line"></i></h1>
           <h2>Monitor Productivity</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal7" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -183,10 +182,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal8">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal8">
           <h1><i class="fas fa-users"></i></h1>
           <h2>Discuss comic strips</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal8" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -207,10 +206,10 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <div class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal9">
+        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal9">
           <h1><i class="fas fa-code"></i></h1>
           <h2>Developers: Contribute</h2>
-        </div>
+        </button>
         <div class="modal fade" id="modal9" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
