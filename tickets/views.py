@@ -1,3 +1,4 @@
+import datetime, random
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,46 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
 from .models import Ticket, TicketComment, TicketUpvoter
+
+def update_tickets(request):
+    '''
+    This view is used purely for randomising the artificially generated data
+    created using django-autofixture
+    '''
+    tickets = Ticket.objects.all()
+
+    for ticket in tickets:
+        new_date = datetime.datetime.now() - datetime.timedelta(days=random.randint(1,365))
+        new_savedate = new_date + datetime.timedelta(days=random.randint(1,30))
+        typeno = random.randint(1,2)
+        if typeno == 1:
+            new_type = 'Bug'
+        else:
+            new_type = 'Feature'
+
+        statusno = random.randint(1,6)
+        if statusno == 1:
+            new_status = 'Logged'
+        elif statusno == 2:
+            new_status = 'Started'
+        elif statusno == 3:
+            new_status = 'In progress'
+        elif statusno == 4:
+            new_status = 'On hold'
+        elif statusno == 5:
+            new_status = 'Completed'
+        elif statusno == 6:
+            new_status = 'Cancelled'
+        else:
+            new_status = 'Logged'
+
+        Ticket.objects.filter(pk=ticket.id).update(date_raised=new_date)
+        Ticket.objects.filter(pk=ticket.id).update(date_last_saved=new_savedate)
+        Ticket.objects.filter(pk=ticket.id).update(type=new_type)
+        Ticket.objects.filter(pk=ticket.id).update(status=new_status)
+        Ticket.objects.filter(pk=ticket.id).update(upvotes=random.randint(0,20))
+
+    return redirect(reverse('ticket_listing'))
 
 def ticket_listing(request):
     '''

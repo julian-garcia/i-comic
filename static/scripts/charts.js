@@ -62,7 +62,7 @@ function render_chart(chartBugArray, chartFeatureArray, chartClass) {
   }, {
     axisX: {
       type: Chartist.FixedScaleAxis,
-
+      divisor: 5,
       labelInterpolationFnc: function(value) {
         return moment(value).format('MMM D');
       }
