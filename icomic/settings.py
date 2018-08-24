@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'tickets',
     'documentation',
     'storages',
+    'autofixture',
 ]
 
 MIDDLEWARE = [
