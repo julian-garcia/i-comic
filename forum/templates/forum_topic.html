@@ -20,12 +20,12 @@
 <div class="row forum-comment mt-4 mb-3 mx-1">
   <div class="col-12 col-md-9 p-3 hand-drawn-border {% if forloop.counter|divisibleby:'2' %}light-row{% else %}light-alt-row{% endif %}">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-12">
         <p>{{ comment.comment }}</p>
         <h5>{{ comment.author.first_name }} {{ comment.author.last_name }},
             {{ comment.date_created|date:'jS M Y, H:i' }}</h5>
       </div>
-      <div class="col-12 col-md-6 text-right">
+      <div class="col-12 text-right">
         <a href="{% url 'add_reply' comment.id %}" class="ticket-list-link"><i class="fas fa-reply ticket-list-icon"></i></a>
       </div>
     </div>
@@ -33,13 +33,13 @@
 </div>
 {% for reply in replies %}
   {% if reply.forum_comment == comment %}
-  <div class="row forum-comment-reply mb-2">
-    <div class="col-12 col-md-9 d-flex justify-content-between">
-      <p class="d-inline">{{ reply.comment }}</p>
+  <div class="row forum-comment-reply mb-2 mx-1">
+    <div class="col-12 col-md-9">
+      <p>{{ reply.comment }}</p>
+    </div>
+    <div class="col-12 col-md-9 text-right">
       <span>{{ reply.author.first_name }} {{ reply.author.last_name }},<br>
             {{ reply.date_created|date:'jS M Y, H:i' }}</span>
-    </div>
-    <div class="col-12 col-md-9">
       <hr>
     </div>
   </div>
