@@ -1,4 +1,4 @@
-#!/Users/Cerberus/i-comic/bin/python3
+#!/Users/Cerberus/projects/i-comic/bin/python
 from django.core import management
 
 if __name__ == "__main__":
