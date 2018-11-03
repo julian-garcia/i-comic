@@ -6,6 +6,7 @@
 <div class="row mb-3">
   <div class="col-12 col-sm-9 text-center">
     <h2>Add a Frame for: <br>"{{ comic_strip.title }}"</h2>
+    <p>Now that you've set up your comic strip you can add frames to it, each with their own image and text. Simply browse for an image to upload and enter narrative to go with it. Please note, you can only add frames to comic strips that you've created yourself.</p>
     <form method="POST" id="frame-add-form" action="{% url 'comic_strip_frame_add' comic_strip.id %}" enctype="multipart/form-data">
       {{ frame_form | as_bootstrap }}
       {% csrf_token %}

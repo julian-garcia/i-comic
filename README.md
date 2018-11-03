@@ -15,20 +15,20 @@ The app was developed using web framework **Django** alongside **Python**, using
 ## Site Design
 
 ### Colour Scheme
-A five colour palette was generated using [colormind.io](colormind.io) to ensure proper colour coordination. Full details in [palette.txt](palette.txt)
+A five colour palette was generated using [colormind.io](colormind.io) to ensure proper colour coordination. Full details in [palette.txt](resources/palette.txt)
 
 ### Typography
 Google Fonts: "Permanent Marker" (major headings), "Kalam" (sub headings and buttons), "Arsenal" (body text).
 Cursive heading fonts used to reflect a comic book style.
 
 ### Wireframe Mockup
-Mockup constructed using [WireframePro](https://mockflow.com/apps/wireframepro/) Version 3.0.9. see [wireframe.pdf](wireframe.pdf)
+Mockup constructed using [WireframePro](https://mockflow.com/apps/wireframepro/) Version 3.0.9. see [wireframe.pdf](resources/wireframe.pdf)
 
 ## Technology
 - HTML, CSS, SCSS, JavaScript
 - [Python](https://www.python.org) 3.7
 - [jQuery](http://jquery.com) 3.3.1
-- [Django](https://www.djangoproject.com) 2.0.7
+- [Django](https://www.djangoproject.com) 2.0.8
 - [Bootstrap](http://getbootstrap.com) 4.1.3
 - [Chartist.js](https://gionkunz.github.io/chartist-js/)
 - [moment.js](https://momentjs.com)
@@ -43,7 +43,7 @@ Mockup constructed using [WireframePro](https://mockflow.com/apps/wireframepro/)
 4. Run `python manage.py runserver` and the project will run on [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ## Testing
-Forty tests have been implemented using the Django testing suite to test the various models, views and forms across all of the apps within this project. Test outcomes are available in [test_outcomes.txt](test_outcomes.txt). Travis CI is being used for continuous integration testing.
+Forty tests have been implemented using the Django testing suite to test the various models, views and forms across all of the apps within this project. Test outcomes are available in [test_outcomes.txt](resources/test_outcomes.txt). Travis CI is being used for continuous integration testing.
 
 ## Credits
 ### Media

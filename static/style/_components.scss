@@ -129,7 +129,7 @@ a.brand-button-content {
     margin: 2rem 1.1rem 0 0;
     padding: 0;
     text-align: right;
-    background-color: rgba($light-shade,.85);
+    background-color: rgba($light-shade,.95);
     border-radius: 20px;
 
     li {
@@ -213,6 +213,8 @@ a.brand-button-content {
 }
 
 .icomic-feature {
+  display: block;
+  width: 100%;
   transition: all .7s ease-in-out;
   &:hover {
     cursor: pointer;
