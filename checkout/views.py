@@ -2,12 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
-from tickets.models import Ticket, TicketUpvoter
-from .models import OrderTransaction, Order
 from .forms import OrderForm, PaymentForm
-import stripe
-
-stripe.api_key = settings.STRIPE_SECRET
+from .checkout import process_payment, commit_data
 
 @login_required
 def checkout(request):
@@ -25,46 +21,14 @@ def checkout(request):
         if payment_form.is_valid() and order_form.is_valid():
             # Process the payment using the Stripe API, feeding back any error messages
             # to this site if unsuccessful
-            try:
-                charge_customer = stripe.Charge.create(
-                                     amount = int(total*100),
-                                     currency = 'gbp',
-                                     description = request.user.email,
-                                     card = payment_form.cleaned_data['stripe_id'],
-                                  )
-            except stripe.error.CardError:
-                messages.error(request, 'Your card was declined')
+            process_payment(request, total, payment_form)
+
             # Only if the Stripe payment is successful, save the order, features
             # and feature upvotes in the backend database
-            if charge_customer.paid:
-                order = order_form.save(commit=False)
-                order.save()
-
-                for item in cart:
-                    ticket = Ticket(title=item['title'],
-                                    type='Feature',
-                                    description=item['description'],
-                                    requester=request.user)
-                    ticket.save()
-                    order_transaction = OrderTransaction(
-                        order = order,
-                        ticket = ticket,
-                        cost = item['feature_cost']
-                        )
-                    order_transaction.save()
-
-                for item in cart_upvotes:
-                    ticket = Ticket.objects.get(pk=item['id'])
-                    if ticket.upvotes is None:
-                        ticket.upvotes = 0
-                    ticket.upvotes += 1
-                    ticket.save()
-                    upvoter = TicketUpvoter(upvoter_ticket=ticket, upvoter_user=request.user)
-                    upvoter.save()
-
+            if process_payment.charge_customer.paid:
+                commit_data(request, order_form, cart, cart_upvotes)
                 request.session['cart'] = []
                 request.session['cart_upvotes'] = []
-
                 messages.info(request, 'Your payment was successful')
                 return redirect(reverse('ticket_listing'))
             else:

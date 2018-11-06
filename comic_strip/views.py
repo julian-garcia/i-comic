@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ComicStripForm, ComicStripFrameAddForm, ComicStripFrameEditForm
 from .models import ComicStrip, ComicStripFrame
+from .comic_strip import commit_strip, commit_frame
 
 def index(request):
     '''
@@ -49,13 +50,9 @@ def comic_strip_add(request):
     will automatically redirect to the login page, as defined by LOGIN_URL in settings
     '''
     if request.method=='POST':
-        comic_strip_form = ComicStripForm(request.POST)
-
-        if comic_strip_form.is_valid():
-            comic_strip = comic_strip_form.save(commit=False)
-            comic_strip.author = request.user
-            comic_strip.save()
-            return redirect(reverse('index'))
+        commit_strip(request)
+        comic_strip_form = commit_strip.comic_strip_form
+        return redirect(reverse('index'))
     else:
         comic_strip_form = ComicStripForm()
 
@@ -73,15 +70,9 @@ def comic_strip_frame_add(request, id):
 
     if comic_strip.author == request.user:
         if request.method == 'POST':
-            frame_form = ComicStripFrameAddForm(request.POST or None, request.FILES or None)
+            commit_frame(request, comic_strip)
 
-            if frame_form.is_valid():
-                frame = frame_form.save(commit=False)
-                # Auto increment the sequence number - used to display frames in the correct order
-                frame.sequence = len(ComicStripFrame.objects.all().filter(comic_strip=comic_strip)) + 1
-                frame.comic_strip = comic_strip
-                frame.move = 0
-                frame.save()
+            if commit_frame.frame_form.is_valid():
                 return redirect(reverse('comic_strip', args=[comic_strip.id]))
             else:
                 messages.error(request, 'Form filled in incorrectly')
