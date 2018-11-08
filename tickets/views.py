@@ -7,46 +7,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import TicketAddForm, TicketEditForm, TicketCommentAddForm
 from .models import Ticket, TicketComment, TicketUpvoter
-
-def update_tickets(request):
-    '''
-    This view is used purely for randomising the artificially generated data
-    created using django-autofixture
-    '''
-    tickets = Ticket.objects.all()
-
-    for ticket in tickets:
-        new_date = datetime.datetime.now() - datetime.timedelta(days=random.randint(1,365))
-        new_savedate = new_date + datetime.timedelta(days=random.randint(1,30))
-        typeno = random.randint(1,2)
-        if typeno == 1:
-            new_type = 'Bug'
-        else:
-            new_type = 'Feature'
-
-        statusno = random.randint(1,6)
-        if statusno == 1:
-            new_status = 'Logged'
-        elif statusno == 2:
-            new_status = 'Started'
-        elif statusno == 3:
-            new_status = 'In progress'
-        elif statusno == 4:
-            new_status = 'On hold'
-        elif statusno == 5:
-            new_status = 'Completed'
-        elif statusno == 6:
-            new_status = 'Cancelled'
-        else:
-            new_status = 'Logged'
-
-        Ticket.objects.filter(pk=ticket.id).update(date_raised=new_date)
-        Ticket.objects.filter(pk=ticket.id).update(date_last_saved=new_savedate)
-        Ticket.objects.filter(pk=ticket.id).update(type=new_type)
-        Ticket.objects.filter(pk=ticket.id).update(status=new_status)
-        Ticket.objects.filter(pk=ticket.id).update(upvotes=random.randint(0,20))
-
-    return redirect(reverse('ticket_listing'))
+from .tickets import register_upvote, create_ticket
 
 def ticket_listing(request):
     '''
@@ -97,21 +58,9 @@ def ticket_add(request):
         ticket_form = TicketAddForm(request.POST)
 
         if ticket_form.is_valid():
-            if ticket_form.cleaned_data.get('type') == 'Bug':
-                ticket = ticket_form.save(commit=False)
-                ticket.requester = request.user
-                ticket.save()
-            elif ticket_form.cleaned_data.get('feature_cost') is not None and ticket_form.cleaned_data.get('feature_cost') > 0:
-                # Add ticket to cart with manually entered price
-                cart = request.session.get('cart', [])
-                cart.append({'title': ticket_form.cleaned_data.get('title'),
-                             'description': ticket_form.cleaned_data.get('description'),
-                             'feature_cost': str(ticket_form.cleaned_data.get('feature_cost'))})
-                request.session['cart'] = cart
-                messages.info(request, 'A new feature has been added to your cart.')
-            else:
-                messages.error(request, 'The cost for a new feature must be above zero.')
-
+            # Save the ticket in the backend if this is a bug or add 
+            # it to the shopping cart if it's a feature that needs paying for 
+            create_ticket(request, ticket_form)
             return redirect(reverse('ticket_listing'))
     else:
         ticket_form = TicketAddForm()
@@ -148,28 +97,10 @@ def ticket_upvote(request, id):
     ticket = Ticket.objects.get(pk=id)
     upvotes = TicketUpvoter.objects.all().filter(upvoter_ticket=ticket,
                                                  upvoter_user=request.user)
-    # Each user upvote is saved in the database to ensure that we only register
-    # one upvote per user. Here we check that the user has not already upvoted this ticket.
-    # If they have, the upvote is skipped and a relevant message passed back to the user
+
     if not upvotes:
-        if ticket.type == 'Bug':
-            if ticket.upvotes is None:
-                ticket.upvotes = 0
-            ticket.upvotes += 1
-            ticket.save()
-            upvoter = TicketUpvoter(upvoter_ticket=ticket, upvoter_user=request.user)
-            upvoter.save()
-        else:
-            # Add upvoted feature to the upvote cart
-            cart_upvotes = request.session.get('cart_upvotes', [])
-            # Check that an upvote has not alread been added to the cart to prevent multiple upvotes
-            if not any(d['id'] == ticket.id for d in cart_upvotes):
-                cart_upvotes.append({'id': ticket.id, 'title': ticket.title, 'cost': 1})
-                request.session['cart_upvotes'] = cart_upvotes
-                messages.info(request, 'An upvote for this feature has been added to your cart.')
-            else:
-                messages.info(request, 'An upvote for this feature is already in your cart.')
-            return redirect(reverse('ticket_view', args=[id]))
+        # Save the upvote if the ticket is a bug or add it to the cart if it's a new feature
+        register_upvote(request, ticket)
     else:
         messages.info(request, 'You have already upvoted this.')
         return redirect(reverse('ticket_view', args=[id]))
@@ -197,3 +128,43 @@ def comment_add(request, id):
         comment_form = TicketCommentAddForm()
 
     return render(request, 'comment_add.html', {'comment_form': comment_form, 'ticket': ticket})
+
+def update_tickets(request):
+    '''
+    This view is used purely for randomising the artificially generated data
+    created using django-autofixture
+    '''
+    tickets = Ticket.objects.all()
+
+    for ticket in tickets:
+        new_date = datetime.datetime.now() - datetime.timedelta(days=random.randint(1,365))
+        new_savedate = new_date + datetime.timedelta(days=random.randint(1,30))
+        typeno = random.randint(1,2)
+        if typeno == 1:
+            new_type = 'Bug'
+        else:
+            new_type = 'Feature'
+
+        statusno = random.randint(1,6)
+        if statusno == 1:
+            new_status = 'Logged'
+        elif statusno == 2:
+            new_status = 'Started'
+        elif statusno == 3:
+            new_status = 'In progress'
+        elif statusno == 4:
+            new_status = 'On hold'
+        elif statusno == 5:
+            new_status = 'Completed'
+        elif statusno == 6:
+            new_status = 'Cancelled'
+        else:
+            new_status = 'Logged'
+
+        Ticket.objects.filter(pk=ticket.id).update(date_raised=new_date)
+        Ticket.objects.filter(pk=ticket.id).update(date_last_saved=new_savedate)
+        Ticket.objects.filter(pk=ticket.id).update(type=new_type)
+        Ticket.objects.filter(pk=ticket.id).update(status=new_status)
+        Ticket.objects.filter(pk=ticket.id).update(upvotes=random.randint(0,20))
+
+    return redirect(reverse('ticket_listing'))

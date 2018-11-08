@@ -14,6 +14,12 @@
   <div class="col-12 col-xl-9">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <a class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" href="{% url 'listing' %}">
+          <h1><i class="fab fa-readme"></i></h1>
+          <h2>Published comic strips</h2>
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         <a class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" href="{% url 'comic_strip_add' %}">
           <h1><i class="fas fa-th"></i></h1>
           <h2>Define your comic strip</h2>
@@ -41,32 +47,11 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <button type="button" class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" data-toggle="modal" data-target="#modal3">
-          <h1><i class="fas fa-pen-nib"></i></h1>
-          <h2>Write the narrative</h2>
-        </button>
-        <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-pen-nib"></i> Write the narrative</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>After you've set up your comic strip you can add frames, each with their own image and text. Visit the listing and select your comic strip, press "add a frame" and simply type in the narrative. Please note, you can only add frames to comic strips that you've created yourself.</p>
-              </div>
-            </div>
-          </div>
+          <a class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" href="{% url 'ticket_listing' %}">
+            <h1><i class="fas fa-list-ul"></i></h1>
+            <h2>Ticket Listing</h2>
+          </a>
         </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        <a class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" href="{% url 'listing' %}">
-          <h1><i class="fab fa-readme"></i></h1>
-          <h2>Read other comic strips</h2>
-        </a>
-      </div>
       <div class="col-12 col-md-6 col-lg-4 mb-4">
         <a class="hand-drawn-border comic-strip-container light-row text-center icomic-feature" href="{% url 'ticket_add' %}">
           <h1><i class="fas fa-bug"></i></h1>
