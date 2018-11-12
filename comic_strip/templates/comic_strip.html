@@ -13,10 +13,10 @@
         <hr class="d-block d-md-none">
         <h3 class="text-left">{{ comic_strip.description|truncatewords:20 }}</h3>
         {% if description_words > 20 %}
-        <button type="button" class="btn brand-button" data-toggle="modal" data-target="#modalLong">
+        <button type="button" class="btn brand-button" data-toggle="modal" data-target="#comic-desc">
           Full description...
         </button>
-        <div class="modal fade" id="modalLong" tabindex="-1" role="dialog" aria-labelledby="modalLongTitle" aria-hidden="true">
+        <div class="modal fade" id="comic-desc" tabindex="-1" role="dialog" aria-labelledby="comic-desc" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -41,7 +41,7 @@
 <div class="row comic-strip-frames hand-drawn-border pb-2 mb-5 mx-1">
   {% for frame in comic_strip_frames %}
     <div class="col-12 col-sm-6 col-md-4 single-frame">
-      <img src="{{ frame.image.url }}">
+      <img src="{{ frame.image.url }}" alt="comic strip frame">
       <p class="narrative">{{ frame.narrative }}</p>
     </div>
   {% endfor %}

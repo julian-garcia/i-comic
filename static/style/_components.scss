@@ -221,6 +221,15 @@ a.brand-button-content {
     background-color: $dark-shade;
     color: $light-shade;
   }
+  i {
+    font-size: 2.5rem;
+  }
+  span {
+    font-size: 2rem;
+    font-family: "Permanent Marker",cursive;
+    display: block;
+    line-height: 1.2em;
+  }
 }
 
 #register-form ul {

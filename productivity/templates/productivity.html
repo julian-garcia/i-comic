@@ -20,16 +20,16 @@
     <h2>Funkiest Features</h2>
     <div class="row top-tickets features">
       <div class="col-4 p-0">
-        <div class="list-group" id="list-tab" role="tablist">
+        <div class="list-group" id="features-tab" role="tablist">
           {% for item in top_feature_data %}
-          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="list-{{ forloop.counter }}-list" data-toggle="list" href="#list-{{ forloop.counter }}" role="tab" aria-controls=""><h4>{{ item.title }}</h4></a>
+          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="featurelist-{{ forloop.counter }}-list" data-toggle="list" href="#featurelist-{{ forloop.counter }}" role="tab"><h4>{{ item.title }}</h4></a>
           {% endfor %}
         </div>
       </div>
       <div class="col-8 p-0 top-tickets-right">
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="feature-tabContent">
           {% for item in top_feature_data %}
-          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="list-{{ forloop.counter }}" role="tabpanel" aria-labelledby="list-{{ forloop.counter }}-list">
+          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="featurelist-{{ forloop.counter }}" role="tabpanel" aria-labelledby="feature-tabContent">
             <br>
             <h5>Upvotes: {{ item.upvotes }}</h5>
             <p>{{ item.description|truncatewords:20 }}</p>
@@ -47,9 +47,9 @@
     <h2>Baddest Bugs</h2>
     <div class="row top-tickets bugs">
       <div class="col-8 p-0 top-tickets-right">
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content" id="bug-tabContent">
           {% for item in top_bug_data %}
-          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="list-{{ forloop.counter }}-bug" role="tabpanel" aria-labelledby="list-{{ forloop.counter }}-list">
+          <div class="tab-pane fade text-center {% if forloop.first %}show active{% endif %}" id="buglist-{{ forloop.counter }}-bug" role="tabpanel" aria-labelledby="buglist-{{ forloop.counter }}-bug">
             <br>
             <h5>Upvotes: {{ item.upvotes }}</h5>
             <p>{{ item.description|truncatewords:20 }}</p>
@@ -60,9 +60,9 @@
         </div>
       </div>
       <div class="col-4 p-0">
-        <div class="list-group" id="list-tab" role="tablist">
+        <div class="list-group" id="bugs-tab" role="tablist">
           {% for item in top_bug_data %}
-          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="list-{{ forloop.counter }}-list" data-toggle="list" href="#list-{{ forloop.counter }}-bug" role="tab" aria-controls=""><h4>{{ item.title }}</h4></a>
+          <a class="list-group-item list-group-item-action {% if forloop.first %} active {% endif %}" id="list-{{ forloop.counter }}-list" data-toggle="list" href="#buglist-{{ forloop.counter }}-bug" role="tab"><h4>{{ item.title }}</h4></a>
           {% endfor %}
         </div>
       </div>
@@ -74,7 +74,7 @@
 {% block chart_js %}
   <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-axistitle@0.0.4/dist/chartist-plugin-axistitle.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-axistitle@0.0.4/dist/chartist-plugin-axistitle.min.js"></script>
   <script>
     var feature_data = {{ feature_data|safe }};
     var bug_data = {{ bug_data|safe }};
@@ -83,5 +83,5 @@
     var feature_data_monthly = {{ feature_data_monthly|safe }};
     var bug_data_monthly = {{ bug_data_monthly|safe }};
   </script>
-  <script src="{% static 'scripts/charts.js' %}" charset="utf-8"></script>
+  <script src="{% static 'scripts/charts.js' %}"></script>
 {% endblock %}

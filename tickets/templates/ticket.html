@@ -15,8 +15,8 @@
 <div class="row mb-3 mx-1">
   <div class="col-12 col-md-9 mb-3 ticket-body hand-drawn-border comic-strip-container ">
     <h3>Ticket Type: {{ ticket.type }}</h3>
-    <h5>Date Raised: {{ ticket.date_raised|date:'jS M Y' }}</h4>
-    <h5>Date Modified: {{ ticket.date_last_saved|date:'jS M Y' }}</h4>
+    <h5>Date Raised: {{ ticket.date_raised|date:'jS M Y' }}</h5>
+    <h5>Date Modified: {{ ticket.date_last_saved|date:'jS M Y' }}</h5>
     <p>{{ ticket.description }}</p>
     <h4>Requester: {{ ticket.requester.first_name }} {{ ticket.requester.last_name }}</h4>
     <div class="row">
